@@ -19,7 +19,7 @@ const SearchInputContainer = styled.View`
   padding: 15px 0;
 `
 
-const ExplorePage = ({navigation}: Props) => {
+const Explore = ({navigation}: Props) => {
   const [users, setUsers] = useState<any>();
 
   function searchUsers(search: string): void {
@@ -52,4 +52,4 @@ const ExplorePage = ({navigation}: Props) => {
   )
 }
 
-export default ExplorePage
+export default Explore

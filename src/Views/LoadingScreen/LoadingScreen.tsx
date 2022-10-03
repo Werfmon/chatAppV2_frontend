@@ -1,21 +1,9 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import { Animated, Easing } from 'react-native';
 
-import { Color } from '../constants/Color';
-
-import { CenterView } from '../components/styled/Views/CenterView';
-import { MainView } from '../components/styled/Views/MainView';
-
-const Spinner = styled.View`
-  width: 100px;
-  height: 100px;
-  border-right-width: 5px;
-  border-right-style : solid;
-  border-right-color : ${() => Color.ORANGE};
-  border-bottom-width: 5px;
-  border-radius: 100px;
-`;
+import { CenterView } from '../_Components/CenterView';
+import { MainView } from '../_Components/MainView';
+import { Spinner } from './Components/Spinner';
 
 const LoadingScreen = () => {
   let spinValue = new Animated.Value(0);
