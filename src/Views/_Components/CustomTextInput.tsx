@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { Color } from "../../../Components/Style/Color";
+import { Color } from "../../Components/Style/Color";
 
 export const CustomTextInput = styled.TextInput`
   width: 80%;

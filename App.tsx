@@ -1,9 +1,9 @@
 import React from "react";
 
-import { createNativeStackNavigator } from "./node_modules/@react-navigation/native-stack/lib/typescript/src/index";
-import NavigationContainer from "./node_modules/@react-navigation/native/lib/typescript/src/NavigationContainer";
-import { navigationRef } from "./src/Components/Navigation/RootNavigation";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {NavigationContainer} from "@react-navigation/native";
 
+import { navigationRef } from "./src/Components/Navigation/RootNavigation";
 import FriendRequest from "./src/Views/FriendRequest/FriendRequest";
 import LoadingScreen from "./src/Views/LoadingScreen/LoadingScreen";
 import Registration from "./src/Views/Registration/Registration";
@@ -21,6 +21,11 @@ const App = () => {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           <Stack.Screen
+            name="Registration"
+            component={Registration}
+            options={{ title: "Registration", headerShown: false }}
+          />
+          <Stack.Screen
             name="LoadingScreen"
             component={LoadingScreen}
             options={{ title: "LoadingScreen", headerShown: false }}
@@ -30,7 +35,7 @@ const App = () => {
             component={Login}
             options={{ title: "Login", headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Explore"
             component={Explore}
             options={{ title: "Explore", headerShown: false }}
@@ -39,13 +44,8 @@ const App = () => {
             name="Chat"
             component={Chat}
             options={{ title: "Chat", headerShown: false }}
-          />
-          <Stack.Screen
-            name="Registration"
-            component={Registration}
-            options={{ title: "Registration", headerShown: false }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="FriendRequest"
             component={FriendRequest}
             options={{ title: "FriendRequest", headerShown: false }}
@@ -59,7 +59,7 @@ const App = () => {
             name="Home"
             component={Home}
             options={{ title: "Home", headerShown: false }}
-          /> 
+          />  */}
         </Stack.Navigator>
       </NavigationContainer>
     </>
