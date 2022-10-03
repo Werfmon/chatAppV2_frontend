@@ -1,36 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text} from 'react-native';
+import {ScrollView} from 'react-native';
 
-import {Props} from '../propTypes/NavigationProps';
+import { setLoggeduserToState } from '../../Services/Home/setLoggedUserToState';
 
-import {ChatsContainer} from '../components/styled/Views/ChatsContainer';
-import {MainView} from '../components/styled/Views/MainView';
+import { ChatsContainer } from './Components/ChatsContainer';
+import { MainView } from '../_Components/MainView';
+import Navbar from './Components/Navbar/Navbar';
+import UnderNavbar from './Components/UnderNavbar/UnderNavbarToExplore';
 
-import Profile1 from '../images/profile1.jpg';
-import Profile2 from '../images/profile2.jpg';
-import Profile3 from '../images/profile3.jpg';
-import Profile4 from '../images/profile4.jpg';
-
-import Navbar from '../components/chat/Navbar';
-import HomeChatCard from '../components/chat/HomeChatCard';
-import UnderNavbar from '../components/UnderNavbar';
-import {navigateTo} from '../functions/global/navigateTo';
-import {getLoggedUser} from '../functions/views/home/getLoggedUser';
-import {getToken} from '../functions/global/getToken';
-import { ErrorMessage } from '../components/error/ErrorMessage';
-import OwnColorButton from '../components/styled/Buttons/OwnColorButton';
-import { Color } from '../constants/Color';
-
-const Home = ({navigation}: Props) => {
+const Home = () => {
   const [loggedUser, setLoggedUser] = useState<any>(false);
-  const [error, setError] = useState(false)
+
   useEffect(() => {
-    getToken().then(token => {
-      getLoggedUser(token).then(data => {
-        setLoggedUser(data);
-        setError(false);
-      }).catch(err => console.error(err))
-    }).catch(err => console.error(err));
+    setLoggeduserToState(setLoggedUser);
   }, []);
 
   return (
@@ -38,10 +20,8 @@ const Home = ({navigation}: Props) => {
       {
         (
         <>
-          <Navbar navigation={navigation} image={loggedUser?.avatarBase64Image} />
-          <UnderNavbar
-            navigateToExplore={() => navigateTo(navigation, 'Explore')}
-          />
+          <Navbar image={loggedUser?.avatarBase64Image} />
+          <UnderNavbar searchChats={() => {}} />
           <ScrollView>
             <ChatsContainer>
               {/* <HomeChatCard

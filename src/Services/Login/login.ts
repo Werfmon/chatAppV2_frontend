@@ -6,7 +6,11 @@ import { encodeBody } from "../../Helper/encodeBody";
 
 import { API } from "@env";
 
-export function login(data: Object): void {
+export function login(email: string, password: string): void {
+  const data: Object = {
+    username: email,
+    password: password
+  }  
   fetch(`${API}/login`, {
     method: "POST",
     headers: {
@@ -15,19 +19,23 @@ export function login(data: Object): void {
     body: encodeBody(data),
   })
     .then((res) => {
+      console.log(res.status);
+      
       return res.json();
     })
     .then(async (data) => {
-      if (data.ok) {
-        console.info("Login response token: " + data.data.token);
+      console.log(data.token);
+      
+      if (data) {
+        console.info("Login response token: " + data.token);
         try {
-          await AsyncStorage.setItem("token", data.data.token);
-          navigate("Home", {});
+          await AsyncStorage.setItem("token", data.token);
+          navigate("Home");
         } catch (e) {
           console.error(e);
         }
       } else {
-        console.log(data.message);
+        console.log("error in login");
       }
     })
     .catch((err) => console.error(err));
