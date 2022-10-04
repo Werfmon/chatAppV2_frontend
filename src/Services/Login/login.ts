@@ -7,6 +7,7 @@ import { encodeBody } from "../../Helper/encodeBody";
 import { API } from "@env";
 
 export function login(email: string, password: string): void {
+  
   const data: Object = {
     username: email,
     password: password

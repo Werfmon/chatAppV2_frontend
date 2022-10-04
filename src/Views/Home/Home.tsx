@@ -20,7 +20,7 @@ const Home = () => {
       {
         (
         <>
-          <Navbar image={loggedUser?.avatarBase64Image} />
+          <Navbar image={loggedUser?.base64Image} />
           <UnderNavbar searchChats={() => {}} />
           <ScrollView>
             <ChatsContainer>
