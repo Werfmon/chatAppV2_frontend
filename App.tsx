@@ -54,12 +54,12 @@ const App = () => {
             name="FriendRequest"
             component={FriendRequest}
             options={{ title: "FriendRequest", headerShown: false }}
-          />
+        />*/}
           <Stack.Screen
             name="Settings"
             component={Settings}
             options={{ title: "Settings", headerShown: false }}
-          /> */}
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     </>

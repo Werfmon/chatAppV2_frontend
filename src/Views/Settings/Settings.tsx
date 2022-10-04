@@ -1,53 +1,26 @@
 import React, {useState} from 'react';
-import {MainView} from '../components/styled/Views/MainView';
-import styled from 'styled-components/native';
-import {Color} from '../constants/Color';
-import SwitchButton from '../components/styled/Buttons/SwitchButton';
-import Button from '../components/styled/Buttons/Button';
-import { Props } from '../propTypes/NavigationProps';
-import { removeTokenFromStorage } from '../functions/global/removeTokenFromStorage';
 
-const Heading = styled.Text`
-  padding: 20px;
-  color: ${() => Color.WHITE};
-  font-size: 20px;
-`;
-const ContainerHeading = styled.View`
-  align-items: center;
-`;
-const SettingsContainer = styled.View`
-  align-items: center;
-  width: 80%;
-  margin: 0 auto;
-  height: 100%;
-`;
-const Title = styled.Text`
-  color: ${() => Color.WHITE};
-  width: 80%;
-  font-size: 17px;
-`;
-const SettingsChild = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  padding: 10px 0;
-`;
-const ButtonContainer = styled.View`
-    top: 50px;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-around;
-`;
+import { navigate } from '../../Components/Navigation/RootNavigation';
 
-const Settings = ({navigation}: Props) => {
+import { removeTokenFromStorage } from '../../Helper/removeTokenFromStorage';
+import { SettingsContainer } from './Components/SettingsContainer';
+import { ContainerHeading } from './Components/ContainerHeading';
+import { SettingsChild } from './Components/SettinsChild';
+import { MainView } from '../_Components/MainView';
+import { Heading } from './Components/Heading';
+import { Title } from './Components/Title';
+import Button from '../_Components/Button';
+import SwitchButton from './Components/SwitchButton';
+import { ButtonContainer } from './Components/ButtonContainer';
+
+
+const Settings = () => {
   const [addPeopleState, setAddPeopleState] = useState<boolean>(false);
   const [addPeopleState2, setAddPeopleState2] = useState<boolean>(false);
 
   function logout(): void {
     removeTokenFromStorage();
-    navigation.navigate('Login')
-  }
-  function navigateTo(): void {
-    navigation.navigate('Home')
+    navigate('Login')
   }
   return (
     <MainView>
@@ -65,7 +38,7 @@ const Settings = ({navigation}: Props) => {
         </SettingsChild>
           <SettingsChild>
             <ButtonContainer>
-              <Button title="Go back" onPress={navigateTo} />
+              <Button title="Go back" onPress={() => navigate('Home')} />
               <Button title="Log out" onPress={logout} />
             </ButtonContainer>
           </SettingsChild>
