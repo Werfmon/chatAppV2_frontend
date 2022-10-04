@@ -19,12 +19,12 @@ const Explore = () => {
     <MainView>
         <Navbar />
         <SearchInputContainer>
-          <SearchInput setState={setUsers} onPress={searchUsers}/>
+          <SearchInput setState={setUsers}/>
         </SearchInputContainer>
         <ChatsContainer>
           <ScrollView>
             {
-              users?.map((user: any, i: number) => <ExploreChatCard key={i} nickname={user.nickname} image={user.base64Image} uuid={user.uuid}/>)
+              users?.map((user: any, i: number) => <ExploreChatCard setState={setUsers} key={i} nickname={user.nickname} image={user.base64Image} uuid={user.uuid}/>)
             }
           </ScrollView>
         </ChatsContainer>
