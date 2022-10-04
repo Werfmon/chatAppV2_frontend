@@ -40,11 +40,12 @@ const App = () => {
             component={LoadingScreen}
             options={{ title: "LoadingScreen", headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Explore"
             component={Explore}
             options={{ title: "Explore", headerShown: false }}
           />
+        {/*
           <Stack.Screen
             name="Chat"
             component={Chat}
