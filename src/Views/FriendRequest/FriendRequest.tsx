@@ -1,26 +1,23 @@
-import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Props } from '../propTypes/NavigationProps'
-import { MainView } from '../components/styled/Views/MainView'
-import { ChatsContainer } from '../components/styled/Views/ChatsContainer'
-import Navbar from '../components/friendRequest/NavBar'
-import RequestCard from '../components/friendRequest/RequestCard'
-import { ColoredText } from '../components/styled/Texts/ColoredText'
-import { getToken } from '../functions/global/getToken'
-import { getAllRequestingUsers } from '../functions/views/friendRequest/getAllRequestingUsers'
+import { ScrollView } from 'react-native'
 
-const FriendRequest = ({navigation}: Props) => {
+import { setAllRequestingUsers } from '../../Services/FriendRequest/setAllRequestingUsers'
+
+import RequestCard from './Components/RequestCard/RequestCard'
+import { ChatsContainer } from './Components/ChatsContainer'
+import { ColoredText } from '../_Components/ColoredText'
+import { MainView } from '../_Components/MainView'
+import Navbar from './Components/Navbar/Navbar'
+
+const FriendRequest = () => {
   const [users, setUsers] = useState([]);
+
   useEffect(() => {
-    getToken().then(token => {
-      getAllRequestingUsers(token).then(data => {
-        setUsers(data);
-      }).catch(err => console.error(err));  
-    }).catch(err => console.error(err));  
+    setAllRequestingUsers(setUsers)
   }, []);
   return (
     <MainView>
-        <Navbar navigation={navigation}/>
+        <Navbar />
         <ChatsContainer>
           <ScrollView>
             {

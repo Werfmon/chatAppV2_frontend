@@ -51,11 +51,11 @@ const App = () => {
             component={Chat}
             options={{ title: "Chat", headerShown: false }}
           /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="FriendRequest"
             component={FriendRequest}
             options={{ title: "FriendRequest", headerShown: false }}
-        />*/}
+        />
           <Stack.Screen
             name="Settings"
             component={Settings}
