@@ -7,13 +7,14 @@ import { CardChild } from './CardChild'
 import AddButton from '../AddButton'
 import Avatar from './Avatar'
 import { Card } from './Card'
-import { searchUsers } from '../../../../Services/Explore/searchUsers'
 
 
-const ExploreChatCard = ({setState, nickname, image, uuid}: any) => {
+const ExploreChatCard = ({setRefresh, refresh, nickname, image, uuid}: any) => {
   function onAdd() {
     addUserAsFriend(uuid);
-    searchUsers('', setState);
+    setRefresh(refresh + 1);
+    console.log('Card: ', refresh + 1);
+    
   }
   return (
     <Card>

@@ -7,5 +7,5 @@ export async function getLoggedUser(authToken: string) {
             Authorization: `Bearer ${authToken}`
         }
     });
-    return await res.json();
+    return res.json();
 }

@@ -1,30 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-import { TextInputContainer } from './TextInputContainer';
-import { Container } from './Container';
-import { CustomTextInput } from './CustomTextInput';
+import { TextInputContainer } from "./TextInputContainer";
+import { Container } from "./Container";
+import { CustomTextInput } from "./CustomTextInput";
 
-import { Color } from '../../../../Components/Style/Color';
+import { Color } from "../../../../Components/Style/Color";
 
-import SearchSvg from '../../../../../public/static/svg/icon_search.svg';
-import { searchUsers } from '../../../../Services/Explore/searchUsers';
+import SearchSvg from "../../../../../public/static/svg/icon_search.svg";
 
-const SearchInput = ({setState}: any) => {
-    const [search, setSearch] = useState<string>('');
+const SearchInput = ({setRefresh, refresh, setSearch}: any) => {
 
-    function onSearch() {
-        searchUsers(search, setState)
-        setSearch('');
-    }
-
-    return (
-      <Container>
+  return (
+        <Container>
           <TextInputContainer>
-              <CustomTextInput onChangeText={(text: string) => setSearch(text)} value={search} placeholder='Search...' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
-              <SearchSvg onPress={onSearch} height={20} width={20}/>
+            <CustomTextInput
+              onChangeText={(text: string) => setSearch(text)}
+              placeholder="Search..."
+              placeholderTextColor={Color.INPUT_PLACEHOLDER}
+            />
+            <SearchSvg onPress={() => setRefresh(refresh + 1)} height={20} width={20} />
           </TextInputContainer>
-      </Container>
-    )
-}
+        </Container>
+  );
+};
 
-export default SearchInput
+export default SearchInput;

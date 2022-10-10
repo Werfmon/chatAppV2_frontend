@@ -12,6 +12,8 @@ export function login(email: string, password: string): void {
     username: email,
     password: password
   }  
+  console.log("Attempt to login: ", data);
+  
   fetch(`${API}/login`, {
     method: "POST",
     headers: {
@@ -20,12 +22,11 @@ export function login(email: string, password: string): void {
     body: encodeBody(data),
   })
     .then((res) => {
-      console.log(res.status);
-      
+      console.info(res.status);
       return res.json();
     })
     .then(async (data) => {
-      console.log(data.token);
+      console.info(data.token);
       
       if (data) {
         console.info("Login response token: " + data.token);
@@ -36,7 +37,7 @@ export function login(email: string, password: string): void {
           console.error(e);
         }
       } else {
-        console.log("error in login");
+        console.warn("error in login");
       }
     })
     .catch((err) => console.error(err));

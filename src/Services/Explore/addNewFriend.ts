@@ -7,5 +7,5 @@ export async function addNewFriend(authToken: string, newFriendUuid: string) {
             Authorization: `Bearer ${authToken}`
         }
     });
-    return await res.json();
+    return res.json();
 }
