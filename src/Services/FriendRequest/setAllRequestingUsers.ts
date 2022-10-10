@@ -7,8 +7,6 @@ export function setAllRequestingUsers(setState: any) {
         if(data.ok) {
             setState(data);
             console.info(data.message);
-            console.log(data);
-            
         } else {
             console.warn(data.message);
         }
