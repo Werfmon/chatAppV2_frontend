@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
@@ -11,7 +11,6 @@ import Settings from "./src/Views/Settings/Settings";
 import Explore from "./src/Views/Explore/Explore";
 import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
-import Chat from "./src/Views/Chat/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,11 +19,11 @@ const App = () => {
     <>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{ title: "Login", headerShown: false }}
-          /> */}
+          />
           <Stack.Screen
             name="Home"
             component={Home}

@@ -9,5 +9,5 @@ export async function getAllAvailableUsersByText(authToken: string, search: stri
             Authorization: `Bearer ${authToken}`
         }
     });
-    return res.json();
+    return await res.json();
 }

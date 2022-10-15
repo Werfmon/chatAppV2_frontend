@@ -1,4 +1,6 @@
 import React from 'react'
+import { acceptFriendRequest } from '../../../../Services/FriendRequest/acceptFriendRequest';
+import { declineFriendRequest } from '../../../../Services/FriendRequest/declineFriendRequest';
 
 import AcceptButton from './AcceptButton';
 import Avatar from './Avatar/Avatar';
@@ -12,12 +14,14 @@ import { NicknameText } from './NicknameText';
 
 
 
-const RequestCard = ({nickname, image, uuid}: any) => {
+const RequestCard = ({setRefresh, refresh, nickname, image, uuid}: any) => {
     function handleDeclineFriendRequest(): void {
-     //TODO
+      declineFriendRequest(uuid);
+      setRefresh(refresh + 1)
     }
     function handleAcceptFriendRequest(): void {
-        //TODO
+      acceptFriendRequest(uuid);
+      setRefresh(refresh + 1)
     }
   return (
     <Card>

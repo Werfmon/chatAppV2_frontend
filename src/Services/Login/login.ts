@@ -27,7 +27,6 @@ export function login(email: string, password: string): void {
     })
     .then(async (data) => {
       console.info(data.token);
-      
       if (data) {
         console.info("Login response token: " + data.token);
         try {

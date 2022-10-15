@@ -7,5 +7,6 @@ export async function getAllRequestingUsers(authToken: string) {
             Authorization: `Bearer ${authToken}`
         }
     });
-    return res.json();
+
+    return await res.json();
 }

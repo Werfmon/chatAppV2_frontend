@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
+import { navigationRef } from "../../Components/Navigation/RootNavigation";
 import { searchUsers } from "../../Services/Explore/searchUsers";
 
 import { MainView } from "../_Components/MainView";
@@ -11,13 +12,12 @@ import { SearchInputContainer } from "./Components/SearchInputContainer";
 
 const Explore = () => {
 
-  const [users, setUsers] = useState<any>([]);
+  const [users, setUsers] = useState<Array<Object>>([]);
   const [refresh, setRefresh] = useState<number>(0);
   const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     searchUsers(search, setUsers);
-    
   }, [refresh])
 
   return (

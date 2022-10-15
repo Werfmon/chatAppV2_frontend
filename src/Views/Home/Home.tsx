@@ -8,12 +8,16 @@ import { MainView } from '../_Components/MainView';
 import Navbar from './Components/Navbar/Navbar';
 import UnderNavbar from './Components/UnderNavbar/UnderNavbarToExplore';
 
-const Home = () => {
-  const [loggedUser, setLoggedUser] = useState<any>(false);
+const Home = ({navigation}: any) => {
+  const [loggedUser, setLoggedUser] = useState<any>();
 
   useEffect(() => {
-    setLoggeduserToState(setLoggedUser);
+    const unsubscribe = navigation.addListener('focus', () => {
+      setLoggeduserToState(setLoggedUser);
+    });
+    return unsubscribe;
   }, []);
+
 
   return (
     <MainView>

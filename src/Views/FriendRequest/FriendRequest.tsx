@@ -8,13 +8,21 @@ import { ChatsContainer } from './Components/ChatsContainer'
 import { ColoredText } from '../_Components/ColoredText'
 import { MainView } from '../_Components/MainView'
 import Navbar from './Components/Navbar/Navbar'
+import { delay } from '../../Helper/delay'
 
-const FriendRequest = () => {
+const FriendRequest = ({navigation}: any) => {
   const [users, setUsers] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     setAllRequestingUsers(setUsers)
-  }, []);
+  }, [refresh]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      setAllRequestingUsers(setUsers)
+    });
+    return unsubscribe;
+  }, [refresh]);
   return (
     <MainView>
         <Navbar />
@@ -22,7 +30,7 @@ const FriendRequest = () => {
           <ScrollView>
             {
              users.length > 0
-                ? users?.map((user: any, i: number) => <RequestCard key={i} nickname={user.nickname} image={user.avatarBase64Image} uuid={user.uuid}/>)
+                ? users?.map((user: any, i: number) => <RequestCard setRefresh={setRefresh} refresh={refresh} key={i} nickname={user.nickname} image={user.base64Image} uuid={user.uuid}/>)
                 : <ColoredText color='#fff'>Any request found</ColoredText>
             }
           </ScrollView>
