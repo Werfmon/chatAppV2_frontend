@@ -7,6 +7,8 @@ import { ChatsContainer } from './Components/ChatsContainer';
 import { MainView } from '../_Components/MainView';
 import Navbar from './Components/Navbar/Navbar';
 import UnderNavbar from './Components/UnderNavbar/UnderNavbarToExplore';
+import HomeChatCard from './Components/ChatCard/ChatCard';
+import { cutText } from '../../Helper/cutText';
 
 const Home = ({navigation}: any) => {
   const [loggedUser, setLoggedUser] = useState<any>();
@@ -28,27 +30,24 @@ const Home = ({navigation}: any) => {
           <UnderNavbar searchChats={() => {}} />
           <ScrollView>
             <ChatsContainer>
-              {/* <HomeChatCard
+            <HomeChatCard
                 isOnline
-                lastMessage="lorem ipsum, lorem lorem lorem lorem"
+                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
                 nickname="Adam Jura"
-                image={Profile1}
+                image={''}
               />
               <HomeChatCard
-                lastMessage="lorem ipsum, lorem lorem lorem lorem"
-                nickname="Adriana"
-                image={Profile2}
+                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
+                nickname="Adam Jura"
+                image={''}
               />
               <HomeChatCard
-                lastMessage="lorem ipsum, lorem lorem lorem lorem"
-                nickname="Filip Fojtík"
-                image={Profile3}
+                isOnline
+                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
+                nickname="Adam Jura"
+                image={''}
               />
-              <HomeChatCard
-                lastMessage="lorem ipsum, lorem lorem lorem lorem"
-                nickname="Jana Novotná"
-                image={Profile4}
-              /> */}
+          
             </ChatsContainer>
           </ScrollView>
         </>

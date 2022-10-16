@@ -21,6 +21,11 @@ const App = () => {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ title: "Home", headerShown: false }}
+          /> 
+          <Stack.Screen
             name="Chat"
             component={Chat}
             options={{ title: "Chat", headerShown: false }}
@@ -30,11 +35,6 @@ const App = () => {
             component={Login}
             options={{ title: "Login", headerShown: false }}
           />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ title: "Home", headerShown: false }}
-          /> 
           <Stack.Screen
             name="Registration"
             component={Registration}
