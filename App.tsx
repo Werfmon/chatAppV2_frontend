@@ -11,6 +11,7 @@ import Settings from "./src/Views/Settings/Settings";
 import Explore from "./src/Views/Explore/Explore";
 import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
+import Chat from "./src/Views/Chat/Chat";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ const App = () => {
     <>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
+            options={{ title: "Chat", headerShown: false }}
+          />
           <Stack.Screen
             name="Login"
             component={Login}
@@ -44,12 +50,6 @@ const App = () => {
             component={Explore}
             options={{ title: "Explore", headerShown: false }}
           />
-        {/*
-          <Stack.Screen
-            name="Chat"
-            component={Chat}
-            options={{ title: "Chat", headerShown: false }}
-          /> */}
           <Stack.Screen
             name="FriendRequest"
             component={FriendRequest}

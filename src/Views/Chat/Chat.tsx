@@ -2,6 +2,12 @@ import React, { EffectCallback, useEffect, useState } from 'react';
 
 import {WS_API} from '@env';
 import { MainView } from '../_Components/MainView';
+import Navbar from './Components/Navbar/Navbar';
+import ChatContainer from './Components/ChatContainer/ChatContainer';
+import MessageGroup from './Components/MessageGroup/MessageGroup';
+import FriendMessage from './Components/Message/FriendMessage/FriendMessage';
+import UserMessage from './Components/Message/UserMessage/UserMessage';
+import TypeInput from './Components/TypeInput/TypeInput';
 
 const Chat = () => {
 
@@ -24,7 +30,7 @@ const Chat = () => {
   // }
   return (
     <MainView>
-      {/* <Navbar navigation={navigation} image={''} nickname="Adam Kubín" />
+      <Navbar image={''} nickname="Adam Kubín" />
       <ChatContainer>
         <MessageGroup>
           <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
@@ -47,7 +53,7 @@ const Chat = () => {
           <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
         </MessageGroup>
       </ChatContainer>
-      <TypeInput send={sendData}/> */}
+      <TypeInput send={(text: string) => {}}/>
     </MainView>
   );
 };
