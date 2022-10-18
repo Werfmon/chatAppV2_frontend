@@ -2,6 +2,7 @@ import { API } from "@env";
 import { getTokenFromStorage } from "../../Helper/getTokenFromStorage";
 
 export function declineFriendRequest(uuid: string) {
+    
     getTokenFromStorage().then(token => {
         fetch(`${API}/friendship/${uuid}/reject`, {
             method: 'PUT',

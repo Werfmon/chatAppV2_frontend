@@ -9,13 +9,42 @@ import Navbar from './Components/Navbar/Navbar';
 import UnderNavbar from './Components/UnderNavbar/UnderNavbarToExplore';
 import HomeChatCard from './Components/ChatCard/ChatCard';
 import { cutText } from '../../Helper/cutText';
+import { setAllUsersChat } from '../../Services/Chat/setAllUserChats';
+import { getTokenFromStorage } from '../../Helper/getTokenFromStorage';
+import { getLoggedUser } from '../../Services/Home/getLoggedUser';
+import {API} from '@env';
 
 const Home = ({navigation}: any) => {
   const [loggedUser, setLoggedUser] = useState<any>();
+  const [userChats, setUserChats] = useState<any>();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      setLoggeduserToState(setLoggedUser);
+      // setAllUsersChat(setUserChats);
+      getTokenFromStorage().then(token => {
+        fetch(`${API}/auth/logged`, {
+          method: 'GET',
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      }).then(res => res.json())
+      .then(data => setLoggedUser(data.data))
+      .catch(err => {throw err});
+    }).catch(err => console.error(err));
+    });
+
+    getTokenFromStorage().then((token) => {
+      fetch(`${API}/chat/current-person`, {
+          method: 'GET',
+          headers: {
+              authorization: `Bearer ${token}`
+          }
+      })
+      .then(res => res.json())
+      .then(data => {
+          console.info(data.message);
+          setUserChats(data.data)
+      }).catch(err => {throw err});
     });
     return unsubscribe;
   }, []);
@@ -30,24 +59,16 @@ const Home = ({navigation}: any) => {
           <UnderNavbar searchChats={() => {}} />
           <ScrollView>
             <ChatsContainer>
-            <HomeChatCard
-                isOnline
-                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
-                nickname="Adam Jura"
-                image={''}
-              />
-              <HomeChatCard
-                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
-                nickname="Adam Jura"
-                image={''}
-              />
-              <HomeChatCard
-                isOnline
-                lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
-                nickname="Adam Jura"
-                image={''}
-              />
-          
+            {userChats?.map((chat: any) => {
+              return (
+                  <HomeChatCard
+                  isOnline={false}
+                  lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
+                  nickname={chat.friendship.person.firstName + ' ' + chat.friendship.person.lastName}
+                  image={chat.friendship.person.base64Image}
+                />
+                )
+              })}
             </ChatsContainer>
           </ScrollView>
         </>

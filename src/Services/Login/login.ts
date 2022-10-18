@@ -6,8 +6,7 @@ import { encodeBody } from "../../Helper/encodeBody";
 
 import { API } from "@env";
 
-export function login(email: string, password: string): void {
-  
+export function login(email: string, password: string) {
   const data: Object = {
     username: email,
     password: password
@@ -39,5 +38,6 @@ export function login(email: string, password: string): void {
         console.warn("error in login");
       }
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {throw err});
 }
+

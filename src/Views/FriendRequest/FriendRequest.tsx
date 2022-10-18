@@ -8,7 +8,6 @@ import { ChatsContainer } from './Components/ChatsContainer'
 import { ColoredText } from '../_Components/ColoredText'
 import { MainView } from '../_Components/MainView'
 import Navbar from './Components/Navbar/Navbar'
-import { delay } from '../../Helper/delay'
 
 const FriendRequest = ({navigation}: any) => {
   const [users, setUsers] = useState([]);
@@ -22,7 +21,7 @@ const FriendRequest = ({navigation}: any) => {
       setAllRequestingUsers(setUsers)
     });
     return unsubscribe;
-  }, [refresh]);
+  }, []);
   return (
     <MainView>
         <Navbar />

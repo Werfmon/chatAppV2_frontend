@@ -13,10 +13,12 @@ import { Form } from './Components/Form'
 import LoginButton from './Components/LoginButton'
 import TextButton from '../_Components/TextButton'
 
+
 const Login = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
+ 
   return (
     <MainView>
       <ScrollView>
@@ -26,7 +28,7 @@ const Login = () => {
           <CustomTextInput onChangeText={(text: string) => setPassword(text)} placeholder='Password' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
           <ButtonsInline>
             <TextButton title='Not registered?' onPress={() => navigate('Registration')}/>
-            <LoginButton title='Login' onPress={() => login(email, password)}/>
+            <LoginButton title='Login' onPress={async () => login(email, password)}/>
           </ButtonsInline>
         </Form>
       </ScrollView>
