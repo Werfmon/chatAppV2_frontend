@@ -18,7 +18,6 @@ const Explore = ({navigation}: any) => {
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
       getTokenFromStorage().then((token) => {
         fetch(`${API}/person/all-available?search=${search}`, {
           method: "GET",
@@ -28,10 +27,9 @@ const Explore = ({navigation}: any) => {
         })
         .then(res => res.json())
         .then(data => setUsers(data.data))
-        .catch(err => {throw err});
+        .catch(err => console.log(err)
+        );
       });
-      return unsubscribe;
-    });
   }, [, refresh]);
 
   return (

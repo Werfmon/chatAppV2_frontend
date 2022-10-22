@@ -9,10 +9,9 @@ import Navbar from './Components/Navbar/Navbar';
 import UnderNavbar from './Components/UnderNavbar/UnderNavbarToExplore';
 import HomeChatCard from './Components/ChatCard/ChatCard';
 import { cutText } from '../../Helper/cutText';
-import { setAllUsersChat } from '../../Services/Chat/setAllUserChats';
 import { getTokenFromStorage } from '../../Helper/getTokenFromStorage';
-import { getLoggedUser } from '../../Services/Home/getLoggedUser';
 import {API} from '@env';
+import { navigate } from '../../Components/Navigation/RootNavigation';
 
 const Home = ({navigation}: any) => {
   const [loggedUser, setLoggedUser] = useState<any>();
@@ -20,7 +19,6 @@ const Home = ({navigation}: any) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      // setAllUsersChat(setUserChats);
       getTokenFromStorage().then(token => {
         fetch(`${API}/auth/logged`, {
           method: 'GET',
@@ -29,7 +27,7 @@ const Home = ({navigation}: any) => {
           }
       }).then(res => res.json())
       .then(data => setLoggedUser(data.data))
-      .catch(err => {throw err});
+      .catch(err => console.error(err));
     }).catch(err => console.error(err));
     });
 
@@ -42,13 +40,20 @@ const Home = ({navigation}: any) => {
       })
       .then(res => res.json())
       .then(data => {
-          console.info(data.message);
+        if (data.ok) {
           setUserChats(data.data)
-      }).catch(err => {throw err});
+        }
+        console.info(data.message);
+      }).catch(err => console.log(err));
     });
     return unsubscribe;
   }, []);
 
+  function goToUserChat(user: any): void {
+    navigate('Chat', {
+      user: user
+    })
+  }
 
   return (
     <MainView>
@@ -62,10 +67,12 @@ const Home = ({navigation}: any) => {
             {userChats?.map((chat: any) => {
               return (
                   <HomeChatCard
-                  isOnline={false}
-                  lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
-                  nickname={chat.friendship.person.firstName + ' ' + chat.friendship.person.lastName}
-                  image={chat.friendship.person.base64Image}
+                    key={chat.uuid}
+                    onPress={() => goToUserChat(chat.friendship.person)}
+                    isOnline={false}
+                    lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
+                    nickname={`${chat.friendship.person.firstName} ${chat.friendship.person.lastName} (${chat.friendship.person.nickname})`}
+                    image={chat.friendship.person.base64Image}
                 />
                 )
               })}

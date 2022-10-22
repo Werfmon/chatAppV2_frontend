@@ -9,9 +9,12 @@ import FriendMessage from './Components/Message/FriendMessage/FriendMessage';
 import UserMessage from './Components/Message/UserMessage/UserMessage';
 import TypeInput from './Components/TypeInput/TypeInput';
 
-const Chat = () => {
+const Chat = ({route}: any) => {
 
   const [webSocket, setWebSocket] = useState(new WebSocket(`${WS_API}/user`));
+  const [friend, setFriend] = useState(route.params.user);
+
+  console.log(route.params.base64Image);
   
   // useEffect(() => {
 
@@ -30,7 +33,7 @@ const Chat = () => {
   // }
   return (
     <MainView>
-      <Navbar image={''} nickname="Adam Kubín" />
+      <Navbar image={friend.base64Image} nickname={friend.nickname} />
       <ChatContainer>
         <MessageGroup>
           <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />

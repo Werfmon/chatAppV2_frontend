@@ -1,4 +1,4 @@
-import { getTokenFromStorage } from "../../Helper/getTokenFromStorage"
+import { getTokenFromStorage } from "../../Helper/getTokenFromStorage";
 import { addNewFriend } from "./addNewFriend"
 
 export function addUserAsFriend(uuid: string): void {

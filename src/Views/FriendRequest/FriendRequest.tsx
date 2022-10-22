@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native'
 
-import { setAllRequestingUsers } from '../../Services/FriendRequest/setAllRequestingUsers'
 
 import RequestCard from './Components/RequestCard/RequestCard'
 import { ChatsContainer } from './Components/ChatsContainer'
 import { ColoredText } from '../_Components/ColoredText'
 import { MainView } from '../_Components/MainView'
 import Navbar from './Components/Navbar/Navbar'
+import { getTokenFromStorage } from '../../Helper/getTokenFromStorage'
+import { API } from "@env";
 
 const FriendRequest = ({navigation}: any) => {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(0);
 
+
   useEffect(() => {
-    setAllRequestingUsers(setUsers)
-  }, [refresh]);
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', async () => {
-      setAllRequestingUsers(setUsers)
-    });
-    return unsubscribe;
-  }, []);
+    getTokenFromStorage().then(token => {
+      fetch(`${API}/friendship/all/waiting`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          setUsers(data.data);
+        } else {
+          console.info(data.message);
+        }
+      }).catch(err => console.error(err))
+    })
+  }, [, refresh]);
+
+ 
   return (
     <MainView>
         <Navbar />

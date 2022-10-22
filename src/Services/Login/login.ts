@@ -38,6 +38,6 @@ export function login(email: string, password: string) {
         console.warn("error in login");
       }
     })
-    .catch((err) => {throw err});
+    .catch((err) => console.log(err));
 }
 
