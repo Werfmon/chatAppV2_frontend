@@ -13,9 +13,17 @@ import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
 import Chat from "./src/Views/Chat/Chat";
 
+import {API} from '@env'
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
+  useEffect(() => {
+    console.info("Init information:");
+    console.info("API: " + API);
+  }, [])
+
   return (
     <>
       <NavigationContainer ref={navigationRef}>

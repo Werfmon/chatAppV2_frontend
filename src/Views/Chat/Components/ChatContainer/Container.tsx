@@ -5,4 +5,5 @@ export const Container = styled.View`
   display: flex;
   justify-content: flex-end;
   margin: 0 auto;
+  margin-bottom: 45px;
 `

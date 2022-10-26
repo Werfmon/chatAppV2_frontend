@@ -24,6 +24,8 @@ const ExploreChatCard = ({
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
+            'content-type': 'application/json',
+            accept: 'application/json',
           },
         })
           .then((res) => res.json())

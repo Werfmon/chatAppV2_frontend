@@ -20,6 +20,8 @@ const FriendRequest = ({navigation}: any) => {
       fetch(`${API}/friendship/all/waiting`, {
         method: 'GET',
         headers: {
+          'content-type': 'application/json',
+          accept: 'application/json',
           Authorization: `Bearer ${token}`
         }
       })

@@ -22,6 +22,8 @@ const Explore = ({navigation}: any) => {
         fetch(`${API}/person/all-available?search=${search}`, {
           method: "GET",
           headers: {
+            'content-type': 'application/json',
+            accept: 'application/json',
             Authorization: `Bearer ${token}`,
           },
         })

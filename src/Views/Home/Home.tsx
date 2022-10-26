@@ -18,23 +18,24 @@ const Home = ({navigation}: any) => {
   const [userChats, setUserChats] = useState<any>();
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
       getTokenFromStorage().then(token => {
         fetch(`${API}/auth/logged`, {
           method: 'GET',
           headers: {
+              'content-type': 'application/json',
+              accept: 'application/json',
               Authorization: `Bearer ${token}`
           }
       }).then(res => res.json())
       .then(data => setLoggedUser(data.data))
       .catch(err => console.error(err));
     }).catch(err => console.error(err));
-    });
 
     getTokenFromStorage().then((token) => {
       fetch(`${API}/chat/current-person`, {
           method: 'GET',
           headers: {
+              accept: 'application/json',
               authorization: `Bearer ${token}`
           }
       })
@@ -46,12 +47,11 @@ const Home = ({navigation}: any) => {
         console.info(data.message);
       }).catch(err => console.log(err));
     });
-    return unsubscribe;
   }, []);
 
-  function goToUserChat(user: any): void {
+  function goToUserChat(chat: any): void {
     navigate('Chat', {
-      user: user
+      chat: chat
     })
   }
 
@@ -68,7 +68,7 @@ const Home = ({navigation}: any) => {
               return (
                   <HomeChatCard
                     key={chat.uuid}
-                    onPress={() => goToUserChat(chat.friendship.person)}
+                    onPress={() => goToUserChat(chat)}
                     isOnline={false}
                     lastMessage={cutText("lorem ipsum, lorem lorem lorem lorem", 35)}
                     nickname={`${chat.friendship.person.firstName} ${chat.friendship.person.lastName} (${chat.friendship.person.nickname})`}

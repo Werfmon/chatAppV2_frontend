@@ -3,8 +3,6 @@ import { ScrollView } from 'react-native'
 
 import { Container } from './Container'
 
-
-
 const ChatContainer = ({children}: PropsWithChildren) => {
   return (
     <ScrollView>

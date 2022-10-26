@@ -21,7 +21,8 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
 
   function login(email: string, password: string) {
-    const data: Object = {
+    
+    const data = {
       username: email,
       password: password,
     };
