@@ -11,50 +11,11 @@ import { Form } from "./Components/Form";
 
 import LoginButton from "./Components/LoginButton";
 import TextButton from "../_Components/TextButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ContentType } from "../../Components/Fetch/Headers";
-import { encodeBody } from "../../Helper/encodeBody";
-import { API } from "@env";
+import { login } from "./Services/login";
 
 const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-
-  function login(email: string, password: string) {
-    
-    const data = {
-      username: email,
-      password: password,
-    };
-    console.log("Attempt to login: ", data);
-
-    fetch(`${API}/login`, {
-      method: "POST",
-      headers: {
-        "content-type": ContentType.APPLICATION_URLENCODED,
-      },
-      body: encodeBody(data),
-    })
-      .then((res) => {
-        console.info(res.status);
-        return res.json();
-      })
-      .then(async (data) => {
-        console.info(data.token);
-        if (data) {
-          console.info("Login response token: " + data.token);
-          try {
-            await AsyncStorage.setItem("token", data.token);
-            navigate("Home");
-          } catch (e) {
-            console.error(e);
-          }
-        } else {
-          console.warn("error in login");
-        }
-      })
-      .catch((err) => console.log(err));
-  }
 
   return (
     <MainView>

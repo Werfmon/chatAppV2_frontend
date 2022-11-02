@@ -1,7 +1,6 @@
 import React from "react";
-import { getTokenFromStorage } from "../../../../Helper/getTokenFromStorage";
-import { acceptFriendRequest } from "../../../../Services/FriendRequest/acceptFriendRequest";
-import { declineFriendRequest } from "../../../../Services/FriendRequest/declineFriendRequest";
+import { acceptFriendRequest } from "../../Services/acceptFriendRequest";
+import { DeclineFriendRequest } from "../../Services/declineFriendRequest";
 
 import AcceptButton from "./AcceptButton";
 import Avatar from "./Avatar/Avatar";
@@ -12,46 +11,7 @@ import { CardChild } from "./CardChild";
 import DeclineButton from "./DeclineButton";
 import { NicknameText } from "./NicknameText";
 
-import { API } from "@env";
-
 const RequestCard = ({ setRefresh, refresh, nickname, image, uuid }: any) => {
-  function handleDeclineFriendRequest(): void {
-    getTokenFromStorage().then((token) => {
-      fetch(`${API}/friendship/${uuid}/reject`, {
-        method: "PUT",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.message);
-          if (data.ok) {
-            setRefresh(refresh + 1);
-          }
-        })
-        .catch((err) => console.error(err));
-    });
-  }
-
-  function handleAcceptFriendRequest(): void {
-    getTokenFromStorage().then((token) => {
-      fetch(`${API}/friendship/${uuid}/accept`, {
-        method: "PUT",
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.message);
-          if (data.ok) {
-            setRefresh(refresh + 1);
-          }
-        })
-        .catch((err) => console.error(err));
-    });
-  }
   return (
     <Card>
       <Avatar image={image} />
@@ -59,8 +19,8 @@ const RequestCard = ({ setRefresh, refresh, nickname, image, uuid }: any) => {
         <NicknameText>{nickname}</NicknameText>
       </CardChild>
       <ButtonContainer>
-        <AcceptButton onPress={handleAcceptFriendRequest} />
-        <DeclineButton onPress={handleDeclineFriendRequest} />
+        <AcceptButton onPress={() => acceptFriendRequest(uuid, refresh, setRefresh)} />
+        <DeclineButton onPress={() => DeclineFriendRequest(uuid, refresh, setRefresh)} />
       </ButtonContainer>
     </Card>
   );

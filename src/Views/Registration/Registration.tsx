@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { ScrollView } from 'react-native'
 
-import {API} from '@env';
 import { CustomTextInput } from '../_Components/CustomTextInput';
 import { ButtonsInline } from '../_Components/ButtonsInline';
 import { navigate } from '../../Components/Navigation/RootNavigation';
@@ -11,7 +10,7 @@ import { MainView } from '../_Components/MainView';
 import { Header } from '../_Components/Header';
 import TextButton from '../_Components/TextButton';
 import RegisterButton from './Components/RegisterButton';
-import { register } from '../../Services/Registration/register';
+import { register } from './Services/register';
 
 const Form = styled.View`
   margin-top: 50px;

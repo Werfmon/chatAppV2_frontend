@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 
 import { navigate } from '../../Components/Navigation/RootNavigation';
-import { logout } from '../../Services/Settings/logout';
 
 import { SettingsContainer } from './Components/SettingsContainer';
 import { ContainerHeading } from './Components/ContainerHeading';
 import { ButtonContainer } from './Components/ButtonContainer';
-import { SettingsChild } from './Components/SettinsChild';
+import { SettingsChild } from './Components/SettingsChild';
 import SwitchButton from './Components/SwitchButton';
 import { MainView } from '../_Components/MainView';
 import { Heading } from './Components/Heading';
 import Button from '../_Components/Button';
 import { Title } from './Components/Title';
+import { logout } from './Services/logout';
 
 
 

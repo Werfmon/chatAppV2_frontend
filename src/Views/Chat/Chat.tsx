@@ -1,4 +1,4 @@
-import React, { EffectCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { WS_API, API } from "@env";
 import { MainView } from "../_Components/MainView";
@@ -9,82 +9,86 @@ import FriendMessage from "./Components/Message/FriendMessage/FriendMessage";
 import UserMessage from "./Components/Message/UserMessage/UserMessage";
 import TypeInput from "./Components/TypeInput/TypeInput";
 import { getTokenFromStorage } from "../../Helper/getTokenFromStorage";
+import EnvConfig from "../../../EnvConfig";
+import { getChatMessages } from "./Services/getChatMessages";
+import { Message } from "./Types/Message";
+import { MessagesTreeType } from "./Types/MessagesTreeType";
 
 const Chat = ({ route }: any) => {
-  const [webSocket, setWebSocket] = useState<any>();
-  const [messages, setMessages] = useState([]);
-
-  const friend = route.params.chat.friendship.person;
-  const chatUuid = route.param.chat.uuid;
+  const WS_URL = `${EnvConfig.WS_API}/socket-chat/${route.params.chat.uuid}${route.params.currentUser.uuid}`;
+  
+  const friend = route.params.chat.friendship.person.uuid === route.params.currentUser.uuid ? route.params.chat.friendship.mainPerson : route.params.chat.friendship.person;
+  const chatUuid = route.params.chat.uuid;
   const LAST_MESSAGES_COUNT = 20;
 
+  const [webSocket, setWebSocket] = useState<WebSocket>(new WebSocket(WS_URL));
+  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messagesTree, setMessagesTree] = useState<Array<MessagesTreeType>>([]);
+  const [pageNumber, setPageNumber] = useState<number>(0);
+
   useEffect(() => {
-    getTokenFromStorage().then(token => {
-      fetch(`${API}/chat/${chatUuid}/messages`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.ok) {
-          setMessages(data.data)
-        }
-        console.info(data.message);
-      })
-      .catch(err => console.error(err))
-    })
-  }, [])
+    getChatMessages(chatUuid, LAST_MESSAGES_COUNT, LAST_MESSAGES_COUNT * pageNumber, setMessages);
+    console.log("Curr: " + route.params.currentUser.uuid);
+    console.log("Main: " + route.params.chat.friendship.mainPerson.uuid);
+    console.log("Person: " + route.params.chat.friendship.person.uuid);
+    
+  }, []);
 
   useEffect(() => {
     getTokenFromStorage().then((token) => {
-      const WS_URL = `${WS_API}/socket-chat/${route.params.chat.uuid}${route.params.chat.friendship.person.uuid}`;
-      const headers = {Authorization: ''};
+      const headers = { Authorization: "" };
       headers["Authorization"] = `Bearer ${token}`;
-
+      console.log("Auth token: " + headers.Authorization);
+      
       const webSocketLocal = new WebSocket(WS_URL, null, {headers});
-      
+
       setWebSocket(webSocketLocal);
-      
+
       webSocketLocal.onopen = () => {
-        webSocketLocal.send("first handshake");
+        console.info("Connection is opened");
       };
-      
-      webSocketLocal.onmessage = (data: any) => {
-        console.log(data);
-      };
+
       webSocketLocal.onerror = (e: any) => {
         console.error(e);
       };
     });
   }, []);
+
+  webSocket.onmessage = (event: WebSocketMessageEvent) => {
+    console.log(event);
+    setMessagesTree([...messagesTree, {currentUser: false, text: event.data}]);
+  };
+
   const sendData = (text: string) => {
-    webSocket.send(JSON.stringify({ user: text }));
+    console.log(text);
+    
+    if (webSocket !== undefined) {
+      webSocket.send(text);
+      setMessagesTree([...messagesTree, {currentUser: true, text: text}]);
+    }
   };
   return (
     <MainView>
       <Navbar image={friend.base64Image} nickname={friend.nickname} />
       <ChatContainer>
-        <MessageGroup>
-          <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
-        </MessageGroup>
-        <MessageGroup>
-          <UserMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
-        </MessageGroup>
-        <MessageGroup>
-          <FriendMessage text="d" />
-          <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
-        </MessageGroup>
-        <MessageGroup>
-          <UserMessage text="fd" />
-          <UserMessage text="fd" />
-          <UserMessage text="fd" />
-          <UserMessage text="fd" />
-        </MessageGroup>
-        <MessageGroup>
-          <FriendMessage text="d" />
-          <FriendMessage text="lorem lorem lorem lorem lorem loremloremdddddddddddd loremdddddddddddddddddddddd lorem" />
-        </MessageGroup>
+        {messages?.map((message: Message, i: number) => (
+          <MessageGroup key={i}>
+            {message.person.uuid === route.params.currentUser.uuid ? (
+              <UserMessage text={message.text} />
+            ) : (
+              <FriendMessage text={message.text} />
+            )}
+          </MessageGroup>
+        ))}
+        {messagesTree?.map((message: MessagesTreeType, i: number) => (
+          <MessageGroup key={i}>
+            {message.currentUser ? (
+              <UserMessage text={message.text} />
+            ) : (
+              <FriendMessage text={message.text} />
+            )}
+          </MessageGroup>
+        ))}
       </ChatContainer>
       <TypeInput send={(text: string) => sendData(text)} />
     </MainView>

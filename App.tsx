@@ -12,8 +12,8 @@ import Explore from "./src/Views/Explore/Explore";
 import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
 import Chat from "./src/Views/Chat/Chat";
+import EnvConfig from "./EnvConfig";
 
-import {API} from '@env'
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,8 @@ const App = () => {
 
   useEffect(() => {
     console.info("Init information:");
-    console.info("API: " + API);
+    console.info("API: " + EnvConfig.API);
+    console.info("WS_API: " + EnvConfig.WS_API);
   }, [])
 
   return (
