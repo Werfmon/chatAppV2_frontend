@@ -27,11 +27,7 @@ const Chat = ({ route }: any) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   useEffect(() => {
-    getChatMessages(chatUuid, LAST_MESSAGES_COUNT, LAST_MESSAGES_COUNT * pageNumber, setMessages);
-    console.log("Curr: " + route.params.currentUser.uuid);
-    console.log("Main: " + route.params.chat.friendship.mainPerson.uuid);
-    console.log("Person: " + route.params.chat.friendship.person.uuid);
-    
+    getChatMessages(chatUuid, LAST_MESSAGES_COUNT, LAST_MESSAGES_COUNT * pageNumber, setMessages);    
   }, []);
 
   useEffect(() => {

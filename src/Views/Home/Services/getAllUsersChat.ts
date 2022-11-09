@@ -15,6 +15,7 @@ export function getAllUsersChat(setUserChats: any) {
             setUserChats(data.data);
           }
           console.info(data.message);
+          console.log(data.data.map((c: any) => c.friendship.person.nickname))
         })
         .catch((err) => console.error(err));
     })

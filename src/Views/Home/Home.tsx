@@ -18,14 +18,17 @@ const Home = () => {
   const [userChats, setUserChats] = useState<any>();
 
   useEffect(() => {
-    const unsubscribe = navigationRef.addListener('options', () => {
+    const unsubscribe = navigationRef.addListener("options", () => {
       getLoggedUser(setLoggedUser);
     });
     return unsubscribe;
   }, []);
   useEffect(() => {
-    getAllUsersChat(setUserChats);
-  }, [, loggedUser]);
+    const unsubscribe = navigationRef.addListener("options", () => {
+      getAllUsersChat(setUserChats);
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <MainView>
@@ -41,6 +44,7 @@ const Home = () => {
                     chat.friendship.mainPerson.uuid === loggedUser.uuid
                       ? chat.friendship.person
                       : chat.friendship.mainPerson;
+                    
                   return (
                     <HomeChatCard
                       key={chat.uuid}

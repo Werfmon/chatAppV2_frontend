@@ -1,11 +1,13 @@
-import React, { PropsWithChildren } from 'react'
+import React, { createRef, PropsWithChildren, useRef } from 'react'
 import { ScrollView } from 'react-native'
 
 import { Container } from './Container'
 
 const ChatContainer = ({children}: PropsWithChildren) => {
-  return (
-    <ScrollView>
+  const scrollViewRef = useRef<any>();
+
+  return (  
+    <ScrollView ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}>
       <Container>
         {children}
       </Container>

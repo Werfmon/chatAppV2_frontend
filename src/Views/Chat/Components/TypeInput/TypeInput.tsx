@@ -10,13 +10,19 @@ interface Props {
 }
 
 const TypeInput = ({send}: Props) => {
-
   const [text, setText] = useState<string>('');
-
+  
+  function handleInput() {
+    if (text.length !== 0) {
+      send(text)
+      setText('');
+    }
+  }
+  
   return (
     <InputContainer>
-        <Input onChangeText={(_text: string) => setText(_text)} placeholder='Type...' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
-        <SendButton onPress={() => send(text)}/>
+        <Input onChangeText={(_text: string) => setText(_text)} value={text} placeholder='Type...' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
+        <SendButton onPress={handleInput}/>
     </InputContainer>
   )
 }

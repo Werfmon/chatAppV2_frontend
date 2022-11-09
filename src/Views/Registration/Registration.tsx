@@ -35,8 +35,8 @@ const Registration = () => {
           <CustomTextInput onChangeText={(text: string) => setLastName(text)} placeholder='Last name' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
           <CustomTextInput onChangeText={(text: string) => setEmail(text)} placeholder='E-mail' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
           <CustomTextInput onChangeText={(text: string) => setNickname(text)} placeholder='Nickname' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
-          <CustomTextInput onChangeText={(text: string) => setPassword(text)} placeholder='Password' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
-          <CustomTextInput onChangeText={(text: string) => setPasswordAgain(text)} placeholder='Password again' placeholderTextColor={Color.INPUT_PLACEHOLDER}/>
+          <CustomTextInput onChangeText={(text: string) => setPassword(text)} placeholder='Password' placeholderTextColor={Color.INPUT_PLACEHOLDER} secureTextEntry={true}/>
+          <CustomTextInput onChangeText={(text: string) => setPasswordAgain(text)} placeholder='Password again' placeholderTextColor={Color.INPUT_PLACEHOLDER} secureTextEntry={true}/>
           <ButtonsInline>
             <TextButton title='Login' onPress={() => navigate('Login')}/>
             <RegisterButton title='Register' onPress={() => register(email, firstName, lastName, nickname, password, passwordAgain)}/>

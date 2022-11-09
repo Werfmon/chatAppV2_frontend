@@ -30,6 +30,7 @@ const Login = () => {
           <CustomTextInput
             onChangeText={(text: string) => setPassword(text)}
             placeholder="Password"
+            secureTextEntry={true}
             placeholderTextColor={Color.INPUT_PLACEHOLDER}
           />
           <ButtonsInline>
