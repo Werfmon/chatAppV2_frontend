@@ -40,11 +40,12 @@ const Home = () => {
             <ChatsContainer>
               {loggedUser &&
                 userChats?.map((chat: any) => {
-                  let friend =
-                    chat.friendship.mainPerson.uuid === loggedUser.uuid
-                      ? chat.friendship.person
-                      : chat.friendship.mainPerson;
-                    
+                  let friend = null;
+                  if (chat.friendship.mainPerson.uuid === loggedUser.uuid) {
+                    friend = chat.friendship.person;
+                  } else {
+                    friend = chat.friendship.mainPerson;
+                  }
                   return (
                     <HomeChatCard
                       key={chat.uuid}

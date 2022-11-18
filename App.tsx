@@ -30,6 +30,11 @@ const App = () => {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ title: "Login", headerShown: false }}
+          />
+          <Stack.Screen
             name="Home"
             component={Home}
             options={{ title: "Home", headerShown: false }}
@@ -38,11 +43,6 @@ const App = () => {
             name="Chat"
             component={Chat}
             options={{ title: "Chat", headerShown: false }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ title: "Login", headerShown: false }}
           />
           <Stack.Screen
             name="Registration"
