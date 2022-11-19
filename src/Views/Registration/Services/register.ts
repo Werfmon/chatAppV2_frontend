@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import EnvConfig from "../../../../EnvConfig";
 import { ContentType } from "../../../Components/Fetch/Headers";
 import { navigate } from "../../../Components/Navigation/RootNavigation";
+import { validateEmail } from "../../../Helper/validateEmail";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
@@ -15,6 +16,30 @@ export function register(
   passwordAgain: string,
   setError: Dispatch<SetStateAction<ErrorProps>>
 ) {
+  if (!validateEmail(email)) {
+    setError({message: 'Bad format of email address', status: Status.INFO, show: true})
+    removeError(setError);
+    console.log("Bad format of email address");
+    return;
+  }
+  if (firstName.length <= 1) {
+    setError({message: 'Firstname is too short', status: Status.INFO, show: true})
+    removeError(setError);
+    console.log("Firstname is too short");
+    return;
+  }
+  if (lastName.length <= 1) {
+    setError({message: 'Lastname is too short', status: Status.INFO, show: true})
+    removeError(setError);
+    console.log("Lastname is too short");
+    return;
+  }
+  if(nickname.length <= 3) {
+    setError({message: 'Nickname is too short', status: Status.INFO, show: true})
+    removeError(setError);
+    console.log("Nickname is too short");
+    return;
+  }
   if (password !== passwordAgain) {
     setError({message: 'Passwords are different', status: Status.INFO, show: true})
     removeError(setError);
