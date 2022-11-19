@@ -26,13 +26,13 @@ export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAc
         })
         .catch((err) => {
           console.warn(err)
-          setError({message: 'Error, try restart application or logout', status: Status.WARNING, show: true})
+          setError({message: 'Something went wrong, try restart application', status: Status.WARNING, show: true})
           removeError(setError);
         });
     })
     .catch((err) => {
-      console.warn(err)
-      setError({message: 'Error, try logout and login again', status: Status.WARNING, show: true})
+      console.error(err)
+      setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
       removeError(setError);
     });
 }

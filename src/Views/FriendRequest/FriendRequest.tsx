@@ -7,17 +7,22 @@ import { ColoredText } from '../_Components/ColoredText'
 import { MainView } from '../_Components/MainView'
 import Navbar from './Components/Navbar/Navbar'
 import { getAllWaitingUsers } from './Services/getAllWaitingUsers'
+import { ErrorProps } from '../_Components/ErrorHanding/Types/ErrorProps'
+import { Status } from '../_Components/ErrorHanding/Helper/Status'
+import Error from '../_Components/ErrorHanding/Error'
 
 const FriendRequest = () => {
   const [users, setUsers] = useState([{}]);
   const [refresh, setRefresh] = useState(0);
+  const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   useEffect(() => {
-    getAllWaitingUsers(setUsers);
+    getAllWaitingUsers(setUsers, setError);
   }, [, refresh]);
 
   return (
     <MainView>
+        <Error message={error.message} status={error.status} show={error.show}/>
         <Navbar />
         <ChatsContainer>
           <ScrollView>

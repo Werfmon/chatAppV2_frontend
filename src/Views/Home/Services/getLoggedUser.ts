@@ -31,7 +31,7 @@ export function getLoggedUser(setUser: Dispatch<SetStateAction<User | null>>, se
     })
     .catch((err) => {
       console.warn(err)
-      setError({message: 'Error, try logout and login again', status: Status.WARNING, show: true})
+      setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
       removeError(setError);
     });
 }

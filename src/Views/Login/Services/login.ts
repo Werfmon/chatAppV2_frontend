@@ -48,5 +48,9 @@ export function login(email: string, password: string, setError: Dispatch<SetSta
         console.warn("error in login");
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error(err)
+      setError({message: 'Something went wrong, try again', status: Status.WARNING, show: true})
+      removeError(setError);
+    });
 }
