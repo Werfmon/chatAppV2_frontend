@@ -1,6 +1,10 @@
+import { Dispatch, SetStateAction } from "react";
 import EnvConfig from "../../../../EnvConfig";
 import { ContentType } from "../../../Components/Fetch/Headers";
 import { navigate } from "../../../Components/Navigation/RootNavigation";
+import { removeError } from "../../_Components/ErrorHanding/Error";
+import { Status } from "../../_Components/ErrorHanding/Helper/Status";
+import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 
 export function register(
   email: string,
@@ -8,9 +12,12 @@ export function register(
   lastName: string,
   nickname: string,
   password: string,
-  passwordAgain: string
+  passwordAgain: string,
+  setError: Dispatch<SetStateAction<ErrorProps>>
 ) {
   if (password !== passwordAgain) {
+    setError({message: 'Passwords are different', status: Status.INFO, show: true})
+    removeError(setError);
     console.log("Passwords are different");
     return;
   }
@@ -21,7 +28,6 @@ export function register(
     nickname: nickname,
     password: password,
   };
-  console.log("fd");
 
   fetch(`${EnvConfig.API}/person/registration`, {
     method: "POST",
@@ -32,10 +38,16 @@ export function register(
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.message);
       if (data.ok) {
         navigate("Login");
+      } else {
+        setError({message: data.message, status: Status.INFO, show: true})
+        removeError(setError);
       }
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.warn(err)
+      setError({message: 'Something went wrong', status: Status.WARNING, show: true})
+      removeError(setError);
+    });
 }

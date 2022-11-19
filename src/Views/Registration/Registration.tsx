@@ -11,6 +11,9 @@ import { Header } from '../_Components/Header';
 import TextButton from '../_Components/TextButton';
 import RegisterButton from './Components/RegisterButton';
 import { register } from './Services/register';
+import { ErrorProps } from '../_Components/ErrorHanding/Types/ErrorProps';
+import { Status } from '../_Components/ErrorHanding/Helper/Status';
+import Error from '../_Components/ErrorHanding/Error';
 
 const Form = styled.View`
   margin-top: 50px;
@@ -25,9 +28,12 @@ const Registration = () => {
   const [lastName, setLastName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordAgain, setPasswordAgain] = useState<string>('');
+  const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
+
 
   return (
     <MainView>
+      <Error message={error.message} status={error.status} show={error.show}/>
       <ScrollView>
         <Header>Registration</Header>
         <Form>
@@ -39,7 +45,7 @@ const Registration = () => {
           <CustomTextInput onChangeText={(text: string) => setPasswordAgain(text)} placeholder='Password again' placeholderTextColor={Color.INPUT_PLACEHOLDER} secureTextEntry={true}/>
           <ButtonsInline>
             <TextButton title='Login' onPress={() => navigate('Login')}/>
-            <RegisterButton title='Register' onPress={() => register(email, firstName, lastName, nickname, password, passwordAgain)}/>
+            <RegisterButton title='Register' onPress={() => register(email, firstName, lastName, nickname, password, passwordAgain, setError)}/>
           </ButtonsInline>
         </Form>
       </ScrollView>

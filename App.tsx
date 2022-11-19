@@ -14,7 +14,6 @@ import Home from "./src/Views/Home/Home";
 import Chat from "./src/Views/Chat/Chat";
 import EnvConfig from "./EnvConfig";
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {

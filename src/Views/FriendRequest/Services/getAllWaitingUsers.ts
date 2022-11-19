@@ -1,8 +1,11 @@
 import EnvConfig from "../../../../EnvConfig";
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { Dispatch, SetStateAction } from "react";
+import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
+import { removeError } from "../../_Components/ErrorHanding/Error";
+import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
-export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Object>>>) {
+export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Object>>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
   
   getTokenFromStorage().then((token) => {
     fetch(`${EnvConfig.API}/friendship/all/waiting`, {
@@ -16,9 +19,20 @@ export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Objec
       .then((data) => {
         if (data.ok) {
           setUsers(data.data);
-        } 
+        } else {
+          setError({message: data.message, status: Status.WARNING, show: true})
+          removeError(setError);
+        }
         console.info(data.message);
       })
-      .catch((err) => console.error(err));
-  });
+      .catch((err) => {
+        console.warn(err)
+        setError({message: 'Something went wrong', status: Status.WARNING, show: true})
+        removeError(setError);
+      });
+  }).catch((err) => {
+    console.error(err)
+    setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
+    removeError(setError);
+  });;
 }

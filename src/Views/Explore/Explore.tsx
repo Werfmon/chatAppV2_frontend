@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
+import Error from "../_Components/ErrorHanding/Error";
+import { Status } from "../_Components/ErrorHanding/Helper/Status";
+import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 
 import { MainView } from "../_Components/MainView";
 import { ChatsContainer } from "./Components/ChatsContainer";
@@ -13,13 +16,15 @@ const Explore = () => {
   const [users, setUsers] = useState<Array<Object>>([]);
   const [refresh, setRefresh] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
+  const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   useEffect(() => {
-    getAllAvailableUsers(search, setUsers);
+    getAllAvailableUsers(search, setUsers, setError);
   }, [, refresh]);
 
   return (
     <MainView>
+      <Error message={error.message} status={error.status} show={error.show}/>
       <Navbar />
       <SearchInputContainer>
         <SearchInput

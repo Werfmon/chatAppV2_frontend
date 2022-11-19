@@ -12,26 +12,31 @@ import { getAllUsersChat } from "./Services/getAllUsersChat";
 import { goToUserChat } from "./Services/goToUserChat";
 import { User } from "./Types/User";
 import { navigationRef } from "../../Components/Navigation/RootNavigation";
+import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
+import { Status } from "../_Components/ErrorHanding/Helper/Status";
+import Error from "../_Components/ErrorHanding/Error";
 
 const Home = () => {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
   const [userChats, setUserChats] = useState<any>();
+  const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
-      getLoggedUser(setLoggedUser);
+      getLoggedUser(setLoggedUser, setError);
     });
     return unsubscribe;
   }, []);
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
-      getAllUsersChat(setUserChats);
+      getAllUsersChat(setUserChats, setError);
     });
     return unsubscribe;
   }, []);
 
   return (
     <MainView>
+      <Error message={error.message} status={error.status} show={error.show}/>
       {
         <>
           <Navbar image={loggedUser?.base64Image} />
