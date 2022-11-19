@@ -11,7 +11,6 @@ import EnvConfig from "../../../EnvConfig";
 import { getChatMessages } from "./Services/getChatMessages";
 import { Message } from "./Types/Message";
 import { MessagesTreeType } from "./Types/MessagesTreeType";
-import { Gap } from "./Components/MessageGroup/Container";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import Error from "../_Components/ErrorHanding/Error";
@@ -33,7 +32,7 @@ const Chat = ({ route }: any) => {
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   useEffect(() => {
-    establishConnection(setWebSocket, WS_URL);
+    establishConnection(setWebSocket, WS_URL, setError);
     getChatMessages(
       chatUuid,
       LAST_MESSAGES_COUNT,
@@ -45,7 +44,6 @@ const Chat = ({ route }: any) => {
 
   webSocket.onmessage = (event: WebSocketMessageEvent) => {
     console.log(event);
-
     setMessagesTree([
       ...messagesTree,
       { currentUser: false, text: event.data },
@@ -54,7 +52,7 @@ const Chat = ({ route }: any) => {
 
   return (
     <MainView>
-      <Error message={error.message} status={error.status} show={error.show}/>
+      <Error message={error.message} status={error.status} show={error.show} />
       <Navbar image={friend.base64Image} nickname={friend.nickname} />
       <ChatContainer>
         {messages?.map((message: Message, i: number) => {
