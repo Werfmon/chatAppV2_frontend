@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { navigate } from "../../Components/Navigation/RootNavigation";
 import { CustomTextInput } from "../_Components/CustomTextInput";
@@ -12,13 +12,18 @@ import { Form } from "./Components/Form";
 import LoginButton from "./Components/LoginButton";
 import TextButton from "../_Components/TextButton";
 import { login } from "./Services/login";
+import Error from "../_Components/ErrorHanding/Error";
+import { Status } from "../_Components/ErrorHanding/Helper/Status";
+import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 
 const Login = () => {
-  const [password, setPassword] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   return (
     <MainView>
+    <Error message={error.message} status={error.status} show={error.show}/>
       <ScrollView>
         <Header>Login</Header>
         <Form>
@@ -37,8 +42,8 @@ const Login = () => {
             <TextButton
               title="Not registered?"
               onPress={() => navigate("Registration")}
-            />
-            <LoginButton title="Login" onPress={() => login(email, password)} />
+              />
+            <LoginButton title="Login" onPress={() => login(email, password, setError)} />
           </ButtonsInline>
         </Form>
       </ScrollView>
