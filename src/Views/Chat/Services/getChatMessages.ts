@@ -29,6 +29,8 @@ export function getChatMessages(
       .then((data) => {
         if (data.ok) {
           setMessages(data.data);
+          console.log(data.data);
+          
         } else {
           setError({message: 'Chat didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
           removeError(setError);

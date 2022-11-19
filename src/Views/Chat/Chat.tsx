@@ -15,14 +15,14 @@ import { Gap } from "./Components/MessageGroup/Container";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import Error from "../_Components/ErrorHanding/Error";
+import { whoIsFriend } from "./Services/whoIsFriend";
+import { wsSetupURL } from "./Services/wsSetupURL";
+import { establishConnection } from "./Services/establishConnection";
+import { sendData } from "./Services/sendData";
 
 const Chat = ({ route }: any) => {
-  const WS_URL = `${EnvConfig.WS_API}/socket-chat/${route.params.chat.uuid}${route.params.currentUser.uuid}`;
-
-  const friend =
-    route.params.chat.friendship.person.uuid === route.params.currentUser.uuid
-      ? route.params.chat.friendship.mainPerson
-      : route.params.chat.friendship.person;
+  const WS_URL = wsSetupURL(route.params.chat.uuid, route.params.currentUser.uuid);
+  const friend = whoIsFriend(route.params.chat.friendship.mainPerson, route.params.chat.friendship.person, route.params.currentUser)
   const chatUuid = route.params.chat.uuid;
   const LAST_MESSAGES_COUNT = 20;
 
@@ -30,10 +30,10 @@ const Chat = ({ route }: any) => {
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [messagesTree, setMessagesTree] = useState<Array<MessagesTreeType>>([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const [nextMessageSame, setNextMessageSame] = useState<boolean>(false);
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
   useEffect(() => {
+    establishConnection(setWebSocket, WS_URL);
     getChatMessages(
       chatUuid,
       LAST_MESSAGES_COUNT,
@@ -43,42 +43,15 @@ const Chat = ({ route }: any) => {
     );
   }, []);
 
-  useEffect(() => {
-    getTokenFromStorage().then((token) => {
-      const headers = { Authorization: "" };
-      headers["Authorization"] = `Bearer ${token}`;
-      console.log("Auth token: " + headers.Authorization);
-
-      const webSocketLocal = new WebSocket(WS_URL, null, { headers });
-
-      setWebSocket(webSocketLocal);
-
-      webSocketLocal.onopen = () => {
-        console.info("Connection is opened");
-      };
-
-      webSocketLocal.onerror = (e: any) => {
-        console.error(e);
-      };
-    });
-  }, []);
-
   webSocket.onmessage = (event: WebSocketMessageEvent) => {
     console.log(event);
+
     setMessagesTree([
       ...messagesTree,
       { currentUser: false, text: event.data },
     ]);
   };
 
-  const sendData = (text: string) => {
-    console.log(text);
-
-    if (webSocket !== undefined) {
-      webSocket.send(text);
-      setMessagesTree([...messagesTree, { currentUser: true, text: text }]);
-    }
-  };
   return (
     <MainView>
       <Error message={error.message} status={error.status} show={error.show}/>
@@ -95,14 +68,14 @@ const Chat = ({ route }: any) => {
         {messagesTree?.map((message: MessagesTreeType, i: number) => (
           <>
             {message.currentUser ? (
-              <UserMessage text={message.text} />
+              <UserMessage key={i} text={message.text} />
             ) : (
-              <FriendMessage text={message.text} />
+              <FriendMessage key={i} text={message.text} />
             )}
           </>
         ))}
       </ChatContainer>
-      <TypeInput send={(text: string) => sendData(text)} />
+      <TypeInput send={(text: string) => sendData(text, webSocket, messagesTree, setMessagesTree)} />
     </MainView>
   );
 };
