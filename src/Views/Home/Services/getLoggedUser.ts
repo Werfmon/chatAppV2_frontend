@@ -14,7 +14,13 @@ export function getLoggedUser(setUser: Dispatch<SetStateAction<User | null>>, se
           authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
+            removeError(setError);
+          }
+          return res.json();
+        })
         .then((data) => {
           if (data.ok) {
             setUser(data.data);

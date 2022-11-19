@@ -28,7 +28,7 @@ const FriendRequest = () => {
           <ScrollView>
             {
              users.length > 0
-                ? users?.map((user: any, i: number) => <RequestCard setRefresh={setRefresh} refresh={refresh} key={i} nickname={user.nickname} image={user.base64Image} uuid={user.uuid}/>)
+                ? users?.map((user: any, i: number) => <RequestCard setRefresh={setRefresh} refresh={refresh} key={i} nickname={user.nickname} image={user.base64Image} uuid={user.uuid} setError={setError} />)
                 : <ColoredText color='#fff'>Any request found</ColoredText>
             }
           </ScrollView>
