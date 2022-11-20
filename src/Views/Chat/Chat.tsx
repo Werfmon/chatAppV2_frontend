@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { MainView } from "../_Components/MainView";
 import Navbar from "./Components/Navbar/Navbar";
-import ChatContainer from "./Components/ChatContainer/ChatContainer";
 import FriendMessage from "./Components/Message/FriendMessage/FriendMessage";
 import UserMessage from "./Components/Message/UserMessage/UserMessage";
 import TypeInput from "./Components/TypeInput/TypeInput";
-import { getTokenFromStorage } from "../../Helper/getTokenFromStorage";
-import EnvConfig from "../../../EnvConfig";
 import { getChatMessages } from "./Services/getChatMessages";
 import { Message } from "./Types/Message";
 import { MessagesTreeType } from "./Types/MessagesTreeType";
@@ -18,6 +15,9 @@ import { whoIsFriend } from "./Services/whoIsFriend";
 import { wsSetupURL } from "./Services/wsSetupURL";
 import { establishConnection } from "./Services/establishConnection";
 import { sendData } from "./Services/sendData";
+import { handleScroll } from "./Services/handleScroll";
+import { ScrollView } from "react-native";
+import { Container } from "./Components/Container";
 
 const Chat = ({ route }: any) => {
   const WS_URL = wsSetupURL(route.params.chat.uuid, route.params.currentUser.uuid);
@@ -27,9 +27,11 @@ const Chat = ({ route }: any) => {
 
   const [webSocket, setWebSocket] = useState<WebSocket>(new WebSocket(WS_URL));
   const [messages, setMessages] = useState<Array<Message>>([]);
+  const [oldMessagesRender, setOldMessagesRender] = useState<Array<Message>>([]);
   const [messagesTree, setMessagesTree] = useState<Array<MessagesTreeType>>([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
+  const scrollViewRef = useRef<any>();
 
   useEffect(() => {
     establishConnection(setWebSocket, WS_URL, setError);
@@ -40,39 +42,46 @@ const Chat = ({ route }: any) => {
       setMessages,
       setError
     );
-  }, []);
+  }, [, pageNumber]);
+  useEffect(() => {
+      // setOldMessagesRender([...messages, ...oldMessagesRender]);
+  }, [messages])
 
   webSocket.onmessage = (event: WebSocketMessageEvent) => {
-    console.log(event);
     setMessagesTree([
       ...messagesTree,
       { currentUser: false, text: event.data },
     ]);
   };
+  function scroll() {
+    scrollViewRef.current.scrollToEnd({ animated: true })
+
+  }
 
   return (
     <MainView>
       <Error message={error.message} status={error.status} show={error.show} />
       <Navbar image={friend.base64Image} nickname={friend.nickname} />
-      <ChatContainer>
-        {messages?.map((message: Message, i: number) => {
-          return message.person.uuid === route.params.currentUser.uuid ? (
-              <UserMessage key={i} text={message.text} />
-          ) : (
-              <FriendMessage key={i} text={message.text} />
-          );
-        })}
-
-        {messagesTree?.map((message: MessagesTreeType, i: number) => (
-          <>
-            {message.currentUser ? (
-              <UserMessage key={i} text={message.text} />
+      <ScrollView onScroll={event => handleScroll(event, setPageNumber, pageNumber)} ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}>
+        <Container>
+          {oldMessagesRender?.map((message: Message, i: number) => {
+            return message.person.uuid === route.params.currentUser.uuid ? (
+                <UserMessage key={i} text={message.text} />
             ) : (
-              <FriendMessage key={i} text={message.text} />
-            )}
-          </>
-        ))}
-      </ChatContainer>
+                <FriendMessage key={i} text={message.text} />
+            );
+          })}
+          {messagesTree?.map((message: MessagesTreeType, i: number) => (
+            <>
+              {message.currentUser ? (
+                <UserMessage key={i} text={message.text} />
+                ) : (
+                  <FriendMessage key={i} text={message.text} />
+                  )}
+            </>
+          ))}
+          </Container>
+      </ScrollView>
       <TypeInput send={(text: string) => sendData(text, webSocket, messagesTree, setMessagesTree)} />
     </MainView>
   );
