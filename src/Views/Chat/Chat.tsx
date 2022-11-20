@@ -16,7 +16,7 @@ import { wsSetupURL } from "./Services/wsSetupURL";
 import { establishConnection } from "./Services/establishConnection";
 import { sendData } from "./Services/sendData";
 import { handleScroll } from "./Services/handleScroll";
-import { ScrollView } from "react-native";
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from "react-native";
 import { Container } from "./Components/Container";
 
 const Chat = ({ route }: any) => {
@@ -76,9 +76,10 @@ const Chat = ({ route }: any) => {
       <Error message={error.message} status={error.status} show={error.show} />
       <Navbar image={friend.base64Image} nickname={friend.nickname} />
       <ScrollView
-        onScroll={(event) => handleScroll(event, setPageNumber, pageNumber)}
+        onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => handleScroll(event, scrollViewRef, setPageNumber, pageNumber)}
         ref={scrollViewRef}
         onContentSizeChange={() => {
+          
           if (pageNumber === 0) {
             scroll();
           }
