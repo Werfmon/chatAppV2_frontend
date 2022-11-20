@@ -18,11 +18,10 @@ export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAc
           if (data.ok) {
             setUserChats(data.data);
           } else {
-            setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
+            setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.ERROR, show: true})
             removeError(setError);
           }
           console.info(data.message);
-          console.log(data.data.map((c: any) => c.friendship.person.nickname))
         })
         .catch((err) => {
           console.warn(err)
