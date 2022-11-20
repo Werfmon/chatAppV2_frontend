@@ -15,8 +15,8 @@ export function getLoggedUser(setUser: Dispatch<SetStateAction<User | null>>, se
         },
       })
         .then((res) => {
-          if (res.ok) {
-            setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
+          if (!res.ok) {
+            setError({message: 'Cannot load avatar, try restart application or logout', status: Status.WARNING, show: true})
             removeError(setError);
           }
           return res.json();
@@ -25,7 +25,7 @@ export function getLoggedUser(setUser: Dispatch<SetStateAction<User | null>>, se
           if (data.ok) {
             setUser(data.data);
           } else {
-            setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
+            setError({message: 'Cannot load avatar, try restart application or logout', status: Status.WARNING, show: true})
             removeError(setError);
           }
           console.info(data.message);

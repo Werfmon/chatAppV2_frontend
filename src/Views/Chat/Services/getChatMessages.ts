@@ -35,7 +35,6 @@ export function getChatMessages(
           setError({message: 'Chat didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
           removeError(setError);
         }
-        console.info(data.message);
       })
       .catch((err) => {
         console.warn(err)
