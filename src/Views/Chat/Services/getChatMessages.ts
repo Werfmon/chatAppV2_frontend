@@ -11,7 +11,7 @@ export function getChatMessages(
   limit: number,
   offset: number,
   setMessages: Dispatch<SetStateAction<Array<Message>>>,
-  setError: Dispatch<SetStateAction<ErrorProps>>
+  setError: Dispatch<SetStateAction<ErrorProps>>,
 ) {
   getTokenFromStorage().then((token) => {
     fetch(`${EnvConfig.API}/chat/${chatUuid}/messages?limit=${limit}&offset=${offset}`, {
@@ -29,8 +29,6 @@ export function getChatMessages(
       .then((data) => {
         if (data.ok) {
           setMessages(data.data);
-          console.log(data.data);
-          
         } else {
           setError({message: 'Chat didn\'t load, try restart application or logout', status: Status.WARNING, show: true})
           removeError(setError);

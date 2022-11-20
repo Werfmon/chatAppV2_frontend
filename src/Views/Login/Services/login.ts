@@ -28,8 +28,7 @@ export function login(email: string, password: string, setError: Dispatch<SetSta
       if (!res.ok) {
         setError({message: 'Bad login, try again', status: Status.WARNING, show: true})
         removeError(setError);
-      }
-      return res.json();
+      } else return res.json();
     })
     .then(async (data) => {
       if (data) {
@@ -43,7 +42,7 @@ export function login(email: string, password: string, setError: Dispatch<SetSta
           removeError(setError);
         }
       } else {
-        setError({message: 'Something went wrong, try again or restart application', status: Status.ERROR, show: true})
+        setError({message: 'Bad login, try again', status: Status.WARNING, show: true})
         removeError(setError);
         console.warn("error in login");
       }

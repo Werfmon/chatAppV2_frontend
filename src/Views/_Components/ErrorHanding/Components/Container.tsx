@@ -7,10 +7,10 @@ type Props = {
 }
 
 export const Container = styled.View`
-    position: absolute;
+    position: relative;
     top: 0;
     width: 100%;
+    height: ${(props: Props) => props.show ? 'auto' : 0};
     background-color: ${(props: Props) => props.status};
-    transform: scale(${(props: Props) => props.show ? 1 : 0});
     z-index: 1000;
 `
