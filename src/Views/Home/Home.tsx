@@ -20,6 +20,7 @@ const Home = () => {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
   const [userChats, setUserChats] = useState<any>();
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
@@ -29,10 +30,13 @@ const Home = () => {
   }, []);
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
-      getAllUsersChat(setUserChats, setError);
+      getAllUsersChat(setUserChats, setError, search);
     });
     return unsubscribe;
   }, []);
+  useEffect(() => {
+    getAllUsersChat(setUserChats, setError, search);
+  }, [search])
 
   return (
     <MainView>
@@ -40,7 +44,7 @@ const Home = () => {
       {
         <>
           <Navbar image={loggedUser?.base64Image} />
-          <UnderNavbar searchChats={() => {}} />
+          <UnderNavbar setSearch={setSearch} />
           <ScrollView>
             <ChatsContainer>
               {loggedUser &&

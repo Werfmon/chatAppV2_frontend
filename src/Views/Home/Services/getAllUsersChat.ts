@@ -5,10 +5,10 @@ import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 
-export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAction<ErrorProps>>) {
+export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAction<ErrorProps>>, search: string, limit: number = 20, offset: number = 0) {
   getTokenFromStorage()
     .then((token) => {
-      fetch(`${EnvConfig.API}/chat/current-person`, {
+      fetch(`${EnvConfig.API}/chat/current-person?search=${search}&limit=${limit}&offset=${offset}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },

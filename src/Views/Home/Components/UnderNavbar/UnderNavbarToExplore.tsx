@@ -5,11 +5,11 @@ import ExploreButton from './ExploreButton'
 import SearchInput from './SearchInput'
 
 
-const UnderNavbar = (searchChats: any) => {
+const UnderNavbar = ({setSearch}: any) => {
 
   return (
     <Container>
-        <SearchInput onPress={searchChats}/>
+        <SearchInput setSearch={setSearch}/>
         <ExploreButton />
     </Container>
   )
