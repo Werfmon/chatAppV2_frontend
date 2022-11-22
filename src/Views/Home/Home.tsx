@@ -15,6 +15,8 @@ import { navigationRef } from "../../Components/Navigation/RootNavigation";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import Error from "../_Components/ErrorHanding/Error";
+import messaging from "@react-native-firebase/messaging";
+
 
 const Home = () => {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
@@ -37,7 +39,12 @@ const Home = () => {
   useEffect(() => {
     getAllUsersChat(setUserChats, setError, search);
   }, [search])
-
+ 
+  useEffect(() => {
+    messaging().getToken().then(token => {
+      console.log(token);
+    })
+  }, [])
   return (
     <MainView>
       <Error message={error.message} status={error.status} show={error.show}/>

@@ -17,13 +17,11 @@ import EnvConfig from "./EnvConfig";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-
   useEffect(() => {
     console.info("Init information:");
     console.info("API: " + EnvConfig.API);
     console.info("WS_API: " + EnvConfig.WS_API);
   }, [])
-
   return (
     <>
       <NavigationContainer ref={navigationRef}>
