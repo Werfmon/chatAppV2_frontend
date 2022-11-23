@@ -12,16 +12,18 @@ import Explore from "./src/Views/Explore/Explore";
 import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
 import Chat from "./src/Views/Chat/Chat";
-import EnvConfig from "./EnvConfig";
+import { firebase } from "@react-native-firebase/messaging";
+import { firebaseConfig } from "./firebaseConfig";
 
 const Stack = createNativeStackNavigator();
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
 const App = () => {
-  useEffect(() => {
-    console.info("Init information:");
-    console.info("API: " + EnvConfig.API);
-    console.info("WS_API: " + EnvConfig.WS_API);
-  }, [])
   return (
     <>
       <NavigationContainer ref={navigationRef}>
