@@ -15,7 +15,7 @@ import { navigationRef } from "../../Components/Navigation/RootNavigation";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import Error from "../_Components/ErrorHanding/Error";
-import messaging, { firebase } from "@react-native-firebase/messaging";
+import { saveFCMToken } from "../Login/Services/saveFCMToken";
 
 
 const Home = () => {
@@ -27,6 +27,7 @@ const Home = () => {
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
       getLoggedUser(setLoggedUser, setError);
+      saveFCMToken();
     });
     return unsubscribe;
   }, []);
@@ -39,12 +40,6 @@ const Home = () => {
   useEffect(() => {
     getAllUsersChat(setUserChats, setError, search);
   }, [search])
- 
-  messaging().registerDeviceForRemoteMessages().then(res => {
-    messaging().getToken().then(value => {
-      console.log(value);
-    });
-  });
 
   return (
     <MainView>

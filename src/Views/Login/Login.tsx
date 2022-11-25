@@ -21,6 +21,10 @@ const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 
+  function handleLogin(): void {
+    login(email, password, setError);
+  }
+
   return (
     <MainView>
     <Error message={error.message} status={error.status} show={error.show}/>
@@ -43,7 +47,7 @@ const Login = () => {
               title="Not registered?"
               onPress={() => navigate("Registration")}
               />
-            <LoginButton title="Login" onPress={() => login(email, password, setError)} />
+            <LoginButton title="Login" onPress={handleLogin} />
           </ButtonsInline>
         </Form>
       </ScrollView>
