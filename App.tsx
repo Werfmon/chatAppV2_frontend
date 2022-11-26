@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
@@ -12,8 +12,9 @@ import Explore from "./src/Views/Explore/Explore";
 import Login from "./src/Views/Login/Login";
 import Home from "./src/Views/Home/Home";
 import Chat from "./src/Views/Chat/Chat";
-import { firebase } from "@react-native-firebase/messaging";
+import messaging, { firebase, FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { firebaseConfig } from "./firebaseConfig";
+import Notifee from '@notifee/react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,21 +24,44 @@ if (!firebase.apps.length) {
   firebase.app(); // if already initialized, use that one
 }
 
+async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) {
+    const { messageId, notification, data } = message;
+
+    const channelId = await Notifee.createChannel({
+      id: messageId || '',
+      name: 'Pressable Channel'
+    });
+    const notifeeNotification = {
+      title: notification?.title || '',
+      body: notification?.body || '',
+      data,
+      android: {
+        channelId,
+        smallIcon: 'ic_launcher',
+        localOnly: true,
+      },
+    }
+    await Notifee.displayNotification(notifeeNotification);
+}
+
+messaging().onMessage(onMessageReceived);
+// messaging().setBackgroundMessageHandler(onMessageReceived);
+
 const App = () => {
   return (
     <>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ title: "Home", headerShown: false }}
-          /> 
-          <Stack.Screen
             name="Login"
             component={Login}
             options={{ title: "Login", headerShown: false }}
           />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ title: "Home", headerShown: false }}
+          /> 
           <Stack.Screen
             name="Chat"
             component={Chat}
