@@ -74,12 +74,11 @@ const Chat = ({ route }: any) => {
   return (
     <MainView>
       <Error message={error.message} status={error.status} show={error.show} />
-      <Navbar image={friend.base64Image} nickname={friend.nickname} />
+      <Navbar webSocket={webSocket} image={friend.base64Image} nickname={friend.nickname} />
       <ScrollView
         onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => handleScroll(event, scrollViewRef, setPageNumber, pageNumber)}
         ref={scrollViewRef}
         onContentSizeChange={() => {
-          
           if (pageNumber === 0) {
             scroll();
           }

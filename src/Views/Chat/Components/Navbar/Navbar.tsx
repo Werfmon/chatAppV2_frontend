@@ -8,11 +8,15 @@ import { NavContainer } from './NavContainer'
 import FriendAvatar from './FriendAvatar'
 import { LeftSide } from './LeftSide'
 
-const Navbar = ({nickname, image}: any) => {
+const Navbar = ({webSocket, nickname, image}: any) => {
+  function handlePress() {
+    webSocket.close();
+    navigate('Home')
+  }
   return (
     <NavContainer>
         <LeftSide>
-            <LeftArrowButton onPress={() => navigate('Home')}/>
+            <LeftArrowButton onPress={handlePress}/>
             <FriendAvatar image={image}/>
         </LeftSide>
         <ColoredText color={Color.WHITE}>{nickname}</ColoredText>
