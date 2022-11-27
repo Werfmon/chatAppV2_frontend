@@ -6,7 +6,6 @@ import { MainView } from "../_Components/MainView";
 import Navbar from "./Components/Navbar/Navbar";
 import UnderNavbar from "./Components/UnderNavbar/UnderNavbarToExplore";
 import HomeChatCard from "./Components/ChatCard/ChatCard";
-import { cutText } from "../../Helper/cutText";
 import { getLoggedUser } from "./Services/getLoggedUser";
 import { getAllUsersChat } from "./Services/getAllUsersChat";
 import { goToUserChat } from "./Services/goToUserChat";
@@ -40,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     getAllUsersChat(setUserChats, setError, search);
   }, [search])
-
+  
   return (
     <MainView>
       <Error message={error.message} status={error.status} show={error.show}/>
@@ -63,10 +62,6 @@ const Home = () => {
                       key={chat.uuid}
                       onPress={() => goToUserChat(chat, loggedUser)}
                       isOnline={false}
-                      lastMessage={cutText(
-                        "lorem ipsum, lorem lorem lorem lorem",
-                        35
-                      )}
                       nickname={`${friend.firstName} ${friend.lastName} (${friend.nickname})`}
                       image={friend.base64Image}
                     />

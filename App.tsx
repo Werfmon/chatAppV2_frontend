@@ -38,7 +38,7 @@ async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) 
         });
         const notifeeNotification = {
           title: notification?.title || '',
-          body: notification?.body || '', 
+          body: 'Message: ' + (notification?.body || ''), 
         data,
         android: {
           channelId,
