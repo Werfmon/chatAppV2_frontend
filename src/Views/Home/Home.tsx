@@ -60,7 +60,10 @@ const Home = () => {
                   return (
                     <HomeChatCard
                       key={chat.uuid}
-                      onPress={() => goToUserChat(chat, loggedUser)}
+                      chatUuid={chat.uuid}
+                      setError={setError}
+                      personUuid={friend.uuid}
+                      onPress={() => goToUserChat(chat, loggedUser, setError)}
                       isOnline={false}
                       nickname={`${friend.firstName} ${friend.lastName} (${friend.nickname})`}
                       image={friend.base64Image}

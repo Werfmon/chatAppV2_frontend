@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Pressable, View } from 'react-native';
+import React, {useState, useEffect, Dispatch, SetStateAction} from 'react';
+import { Pressable } from 'react-native';
 
 import { LastMessageText } from './LastMessageText';
 import { NicknameText } from './NicknameText';
@@ -10,20 +10,31 @@ import messaging from "@react-native-firebase/messaging";
 import { cutText } from '../../../../Helper/cutText';
 import { LastMessageContainer } from './LastMessageContainer';
 import { LastMessageDate } from './LastMessageDate';
+import { getLastChatMessage } from '../../Services/getLastChatMessage';
+import { ErrorProps } from '../../../_Components/ErrorHanding/Types/ErrorProps';
 
 interface Props {
   isOnline?: boolean;
   image: string;
   nickname: string;
   onPress: any;
+  personUuid: string;
+  chatUuid: string;
+  setError: Dispatch<SetStateAction<ErrorProps>>;
 }
 
-const HomeChatCard = ({isOnline, image, nickname, onPress}: Props) => {
+const HomeChatCard = ({isOnline, image, nickname, onPress, personUuid, chatUuid, setError}: Props) => {
   const [lastMessage, setLastMessage] = useState<any>({});
+
   async function onMessageReceived(message: any) {
-    const sentTime = message.data.sentDate.split('T')[1].substr(0, 5);
-    setLastMessage({message: message.notification.body, sentDate: sentTime, seen: false})
+    if (personUuid === message.data.personUuid) {
+      const sentTime = message.data.sentDate.split('T')[1].substr(0, 5);
+      setLastMessage({message: message.notification.body, sentDate: ' • ' + sentTime, seen: false})
+    }
   }
+  useEffect(() => {
+    getLastChatMessage(chatUuid, setLastMessage, setError);
+  }, [])
 
   messaging().onMessage(onMessageReceived);
   return (
@@ -34,7 +45,7 @@ const HomeChatCard = ({isOnline, image, nickname, onPress}: Props) => {
           <NicknameText seen={lastMessage.seen}>{nickname}</NicknameText>
           <LastMessageContainer>
             <LastMessageText seen={lastMessage.seen}>{cutText(lastMessage.message, 20)}</LastMessageText>
-            <LastMessageDate seen={lastMessage.seen}> • {lastMessage.sentDate}</LastMessageDate>
+            <LastMessageDate seen={lastMessage.seen}>{lastMessage.sentDate}</LastMessageDate>
           </LastMessageContainer>
         </CardChild>
       </Card>
