@@ -61,6 +61,7 @@ const Home = () => {
                     <HomeChatCard
                       key={chat.uuid}
                       chatUuid={chat.uuid}
+                      loggedPersonUuid={loggedUser.uuid}
                       setError={setError}
                       personUuid={friend.uuid}
                       onPress={() => goToUserChat(chat, loggedUser, setError)}

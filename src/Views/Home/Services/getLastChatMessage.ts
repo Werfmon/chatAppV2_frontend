@@ -6,7 +6,7 @@ import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
-export function getLastChatMessage(chatUuid: string, setLastMessage: Dispatch<SetStateAction<LastMessage>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
+export function getLastChatMessage(chatUuid: string, loggedPersonUuid: string, setLastMessage: Dispatch<SetStateAction<LastMessage>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
     getTokenFromStorage().then(token => {
         fetch(`${EnvConfig.API}/chat/${chatUuid}/message/last`, {
             headers: {
@@ -17,10 +17,10 @@ export function getLastChatMessage(chatUuid: string, setLastMessage: Dispatch<Se
         .then(data => {
             if (data.ok) {
                 const messageData = data.data;
-                console.log(messageData);
-                
+                const seen = loggedPersonUuid === messageData.person.uuid ? true : messageData.seen;
                 const sentDate = messageData.sentDate.split('T')[1].substr(0, 5);
-                setLastMessage({message: messageData.text, sentDate: ' • ' + sentDate, seen: messageData.seen});
+
+                setLastMessage({message: messageData.text, sentDate: ' • ' + sentDate, seen: seen});
             }
             console.log(data.message);
         })

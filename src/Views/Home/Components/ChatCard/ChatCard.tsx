@@ -20,10 +20,11 @@ interface Props {
   onPress: any;
   personUuid: string;
   chatUuid: string;
+  loggedPersonUuid: string;
   setError: Dispatch<SetStateAction<ErrorProps>>;
 }
 
-const HomeChatCard = ({isOnline, image, nickname, onPress, personUuid, chatUuid, setError}: Props) => {
+const HomeChatCard = ({isOnline, image, nickname, onPress, personUuid, chatUuid, loggedPersonUuid, setError}: Props) => {
   const [lastMessage, setLastMessage] = useState<any>({});
 
   async function onMessageReceived(message: any) {
@@ -33,7 +34,7 @@ const HomeChatCard = ({isOnline, image, nickname, onPress, personUuid, chatUuid,
     }
   }
   useEffect(() => {
-    getLastChatMessage(chatUuid, setLastMessage, setError);
+    getLastChatMessage(chatUuid, loggedPersonUuid, setLastMessage, setError);
   }, [])
 
   messaging().onMessage(onMessageReceived);
