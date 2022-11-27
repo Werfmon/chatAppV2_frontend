@@ -43,8 +43,7 @@ async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) 
         android: {
           channelId,
           smallIcon: 'ic_launcher',
-          localOnly: true,
-          color: Color.ORANGE
+          localOnly: true
         },
       }
       await Notifee.displayNotification(notifeeNotification);

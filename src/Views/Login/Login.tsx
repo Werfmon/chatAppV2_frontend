@@ -15,6 +15,7 @@ import { login } from "./Services/login";
 import Error from "../_Components/ErrorHanding/Error";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
+import { isPersonLogged } from "./Services/isPersonLogged";
 
 const Login = () => {
   const [password, setPassword] = useState<string>('');
@@ -24,6 +25,9 @@ const Login = () => {
   function handleLogin(): void {
     login(email, password, setError);
   }
+  useEffect(() => {
+    isPersonLogged()
+  }, [])
 
   return (
     <MainView>
