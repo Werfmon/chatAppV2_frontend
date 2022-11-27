@@ -15,6 +15,8 @@ import { navigationRef } from "../../Components/Navigation/RootNavigation";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import Error from "../_Components/ErrorHanding/Error";
+import { saveFCMToken } from "../Login/Services/saveFCMToken";
+
 
 const Home = () => {
   const [loggedUser, setLoggedUser] = useState<User | null>(null);
@@ -25,6 +27,7 @@ const Home = () => {
   useEffect(() => {
     const unsubscribe = navigationRef.addListener("options", () => {
       getLoggedUser(setLoggedUser, setError);
+      saveFCMToken();
     });
     return unsubscribe;
   }, []);

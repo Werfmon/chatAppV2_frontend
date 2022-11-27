@@ -15,11 +15,19 @@ import { login } from "./Services/login";
 import Error from "../_Components/ErrorHanding/Error";
 import { Status } from "../_Components/ErrorHanding/Helper/Status";
 import { ErrorProps } from "../_Components/ErrorHanding/Types/ErrorProps";
+import { isPersonLogged } from "./Services/isPersonLogged";
 
 const Login = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
+
+  function handleLogin(): void {
+    login(email, password, setError);
+  }
+  useEffect(() => {
+    isPersonLogged()
+  }, [])
 
   return (
     <MainView>
@@ -43,7 +51,7 @@ const Login = () => {
               title="Not registered?"
               onPress={() => navigate("Registration")}
               />
-            <LoginButton title="Login" onPress={() => login(email, password, setError)} />
+            <LoginButton title="Login" onPress={handleLogin} />
           </ButtonsInline>
         </Form>
       </ScrollView>
