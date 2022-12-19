@@ -12,6 +12,7 @@ import { LastMessageContainer } from './LastMessageContainer';
 import { LastMessageDate } from './LastMessageDate';
 import { getLastChatMessage } from '../../Services/getLastChatMessage';
 import { ErrorProps } from '../../../_Components/ErrorHanding/Types/ErrorProps';
+import { navigationRef } from '../../../../Components/Navigation/RootNavigation';
 
 interface Props {
   isOnline?: boolean;
@@ -34,9 +35,14 @@ const HomeChatCard = ({isOnline, image, nickname, onPress, personUuid, chatUuid,
     }
   }
   useEffect(() => {
-    getLastChatMessage(chatUuid, loggedPersonUuid, setLastMessage, setError);
+    navigationRef.addListener("options", () => {
+      getLastChatMessage(chatUuid, loggedPersonUuid, setLastMessage, setError);
+    });
   }, [])
-
+  useEffect(() => {
+      getLastChatMessage(chatUuid, loggedPersonUuid, setLastMessage, setError);
+  }, [])
+  
   messaging().onMessage(onMessageReceived);
   return (
     <Pressable onPress={onPress}>

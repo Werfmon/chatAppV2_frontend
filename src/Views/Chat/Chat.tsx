@@ -34,9 +34,7 @@ const Chat = ({ route }: any) => {
 
   const [webSocket, setWebSocket] = useState<WebSocket>(new WebSocket(WS_URL));
   const [messages, setMessages] = useState<Array<Message>>([]);
-  const [oldMessagesRender, setOldMessagesRender] = useState<Array<Message>>(
-    []
-  );
+  const [oldMessagesRender, setOldMessagesRender] = useState<Array<Message>>([]);
   const [messagesTree, setMessagesTree] = useState<Array<MessagesTreeType>>([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [error, setError] = useState<ErrorProps>({
@@ -46,6 +44,7 @@ const Chat = ({ route }: any) => {
   const scrollViewRef = useRef<any>();
 
   function scroll() {
+    if (scrollViewRef.current !== null)
     scrollViewRef.current.scrollToEnd({ animated: true });
   }
   
