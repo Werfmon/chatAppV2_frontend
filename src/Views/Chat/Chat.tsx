@@ -84,22 +84,19 @@ const Chat = ({ route }: any) => {
         }}
       >
         <Container>
-          {oldMessagesRender?.map((message: Message, i: number) => {
-            return message.person.uuid === route.params.currentUser.uuid ? (
+          {oldMessagesRender?.map((message: Message, i: number) => 
+           message.person.uuid === route.params.currentUser.uuid ? (
               <UserMessage key={i} text={message.text} />
             ) : (
               <FriendMessage key={i} text={message.text} />
-            );
-          })}
-          {messagesTree?.map((message: MessagesTreeType, i: number) => (
-            <>
-              {message.currentUser ? (
-                <UserMessage key={i} text={message.text} />
-              ) : (
-                <FriendMessage key={i} text={message.text} />
-              )}
-            </>
-          ))}
+            )
+          )}
+          {messagesTree?.map((message: MessagesTreeType, i: number) => message.currentUser ? (
+              <UserMessage key={i} text={message.text} />
+            ) : (
+              <FriendMessage key={i} text={message.text} />
+            )
+          )}
         </Container>
       </ScrollView>
       <TypeInput

@@ -3,4 +3,5 @@ export type Message = {
     uuid: string;
   };
   text: string;
+  uuid: string;
 };
