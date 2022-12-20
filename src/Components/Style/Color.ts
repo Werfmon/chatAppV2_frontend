@@ -4,6 +4,7 @@ export enum Color {
     WHITE = '#FFF',
     GREY = '#191919',
     RED = '#ff4d00',
+    ICON_WHITE = '#fff',
     ONLINE_COLOR = '#05E213',
     INPUT_GREY = '#191919',
     INPUT_PLACEHOLDER = '#ADADAD',
