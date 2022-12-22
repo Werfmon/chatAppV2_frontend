@@ -7,4 +7,5 @@ export type Locations = {
   Login: undefined;
   Registration: undefined;
   FriendRequest: undefined;
+  PasswordChange: undefined;
 };

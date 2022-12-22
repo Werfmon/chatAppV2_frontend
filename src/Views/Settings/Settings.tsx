@@ -43,7 +43,7 @@ const Settings = () => {
           </Frame>
         </SettingsChild>
         <SettingsChild>
-          <Frame onPress={() => {}} title='Password change' description='Change old password to new one'>
+          <Frame onPress={() => navigate('PasswordChange')} title='Password change' description='Change old password to new one'>
               <KeySvg height={18} width={18} fill={Color.ICON_WHITE}/>
           </Frame>
         </SettingsChild>

@@ -20,23 +20,20 @@ export function updateUserAvatar(base64Image: string, setError: Dispatch<SetStat
         .then(data => {
             if (!data.ok) {
                 setError({message: 'Something went wrong', status: Status.WARNING, show: true})
-                removeError(setError);
 
             } else {
                 setError({message: 'Avatar was changed', status: Status.INFO, show: true})
-                removeError(setError);
-
             }
             console.info(data.message);
         })
         .catch(err => {
             console.warn(err);
             setError({message: 'Something went wrong', status: Status.WARNING, show: true})
-            removeError(setError);
         })
     }).catch(err => {
         console.error(err);
         setError({message: 'Something went wrong, try reload app', status: Status.ERROR, show: true})
+    }).finally(() => {
         removeError(setError);
     })
 }

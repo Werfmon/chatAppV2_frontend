@@ -18,6 +18,7 @@ import { firebaseConfig } from "./firebaseConfig";
 import Notifee from '@notifee/react-native';
 import { getTokenFromStorage } from "./src/Helper/getTokenFromStorage";
 import { Color } from "./src/Components/Style/Color";
+import PasswordChange from "./src/Views/PasswordChange/PasswordChange";
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,11 @@ const App = () => {
             name="Settings"
             component={Settings}
             options={{ title: "Settings", headerShown: false }}
+          /> 
+          <Stack.Screen
+            name="PasswordChange"
+            component={PasswordChange}
+            options={{ title: "PasswordChange", headerShown: false }}
           /> 
         </Stack.Navigator>
       </NavigationContainer>
