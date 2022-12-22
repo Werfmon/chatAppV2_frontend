@@ -5,15 +5,19 @@ import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import EnvConfig from "../../../../EnvConfig";
 import { ContentType } from "../../../Components/Fetch/Headers";
+import { InputRules } from "../../../Helper/InputRules";
 
 export function changePassword(oldPassword: string, newPassword: string, newPasswordAgain: string, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then(token => {
         if (newPassword !== newPasswordAgain) {
             console.warn('Passwords are not same');
             setError({message: 'Passwords are not same', status: Status.WARNING, show: true})
+        } else if (newPassword.length <= InputRules.PASSWORD_MAX_LENGTH) {
+            console.warn('Password is too short');
+            setError({message: 'Password is too short', status: Status.WARNING, show: true})
         } else {
 
-            const data = { oldPassword: oldPassword, newPassword: newPassword }
+            const data = { oldPassword, newPassword }
             
             fetch(`${EnvConfig.API}/person/password`, {
                 method: 'PUT',
