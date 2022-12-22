@@ -10,7 +10,8 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./types"],
   },
   "exclude": [
     "node_modules",

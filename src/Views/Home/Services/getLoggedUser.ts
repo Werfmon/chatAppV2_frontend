@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
@@ -9,7 +9,7 @@ import { User } from "../Types/User";
 export function getLoggedUser(setUser: Dispatch<SetStateAction<User | null>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
   getTokenFromStorage()
     .then((token) => {
-      fetch(`${EnvConfig.API}/auth/logged`, {
+      fetch(`${API}/auth/logged`, {
         headers: {
           authorization: `Bearer ${token}`,
         },

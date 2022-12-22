@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { ContentType } from "../../../Components/Fetch/Headers";
 import { navigate } from "../../../Components/Navigation/RootNavigation";
 import { validateEmail } from "../../../Helper/validateEmail";
@@ -54,7 +54,7 @@ export function register(
     password: password,
   };
 
-  fetch(`${EnvConfig.API}/person/registration`, {
+  fetch(`${API}/person/registration`, {
     method: "POST",
     headers: {
       "content-type": ContentType.APPLICATION_JSON,

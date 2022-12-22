@@ -1,6 +1,6 @@
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import messaging from "@react-native-firebase/messaging";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { ContentType } from "../../../Components/Fetch/Headers";
 
 export function saveFCMToken(): void {
@@ -9,7 +9,7 @@ export function saveFCMToken(): void {
             messaging().getToken().then(fcmToken => {
                 console.log("FCM token: " + fcmToken);
                 
-                fetch(`${EnvConfig.API}/person/subscribe`, {
+                fetch(`${API}/person/subscribe`, {
                     method: 'PUT',
                     headers: {
                         authorization: `Bearer ${token}`,

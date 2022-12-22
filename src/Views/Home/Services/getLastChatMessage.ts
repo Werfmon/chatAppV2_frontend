@@ -1,4 +1,4 @@
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import {Dispatch, SetStateAction} from 'react';
 import { LastMessage } from "../Types/LastMessage";
@@ -8,7 +8,7 @@ import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
 export function getLastChatMessage(chatUuid: string, loggedPersonUuid: string, setLastMessage: Dispatch<SetStateAction<LastMessage>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
     getTokenFromStorage().then(token => {
-        fetch(`${EnvConfig.API}/chat/${chatUuid}/message/last`, {
+        fetch(`${API}/chat/${chatUuid}/message/last`, {
             headers: {
                 authorization: `Bearer ${token}`
             }

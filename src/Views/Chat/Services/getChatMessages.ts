@@ -1,10 +1,10 @@
-import EnvConfig from "../../../../EnvConfig";
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { Dispatch, SetStateAction } from "react";
 import { Message } from "../Types/Message";
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
+import { API } from "@env";
 
 export function getChatMessages(
   chatUuid: string,
@@ -14,7 +14,7 @@ export function getChatMessages(
   setError: Dispatch<SetStateAction<ErrorProps>>,
 ) {
   getTokenFromStorage().then((token) => {
-    fetch(`${EnvConfig.API}/chat/${chatUuid}/messages?limit=${limit}&offset=${offset}`, {
+    fetch(`${API}/chat/${chatUuid}/messages?limit=${limit}&offset=${offset}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

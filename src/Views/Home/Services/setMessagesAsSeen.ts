@@ -1,4 +1,4 @@
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import {Dispatch, SetStateAction} from 'react';
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
@@ -7,7 +7,7 @@ import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
 export function setMessagesAsSeen(chatUuid: string, setError: Dispatch<SetStateAction<ErrorProps>>) {
     getTokenFromStorage().then(token => {
-        fetch(`${EnvConfig.API}/chat/${chatUuid}/messages/set-seen/latest`, {
+        fetch(`${API}/chat/${chatUuid}/messages/set-seen/latest`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${token}` 

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 
@@ -11,7 +11,7 @@ import { ContentType } from "../../../Components/Fetch/Headers";
 
 export function updateUserAvatar(base64Image: string, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then(token => {
-        fetch(`${EnvConfig.API}/person/avatar`, {
+        fetch(`${API}/person/avatar`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${token}`,

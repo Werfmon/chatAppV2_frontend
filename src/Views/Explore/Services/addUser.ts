@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
@@ -13,7 +13,7 @@ export function addUser(
 ) {
   getTokenFromStorage()
     .then((token) => {
-      fetch(`${EnvConfig.API}/friendship/${uuid}/add`, {
+      fetch(`${API}/friendship/${uuid}/add`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`

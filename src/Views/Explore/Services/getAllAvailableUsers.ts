@@ -1,6 +1,6 @@
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { Dispatch, SetStateAction } from "react";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
@@ -11,7 +11,7 @@ export function getAllAvailableUsers(
   setError: Dispatch<SetStateAction<ErrorProps>>
 ) {
   getTokenFromStorage().then((token) => {
-    fetch(`${EnvConfig.API}/person/all-available?search=${search}`, {
+    fetch(`${API}/person/all-available?search=${search}`, {
       method: 'GET',
       headers: {
         authorization: `Bearer ${token}`

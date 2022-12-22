@@ -1,13 +1,13 @@
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { Dispatch, SetStateAction } from "react";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
 export function acceptFriendRequest(uuid: string, refresh: number, setRefresh: Dispatch<SetStateAction<number>>, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then((token) => {
-      fetch(`${EnvConfig.API}/friendship/${uuid}/accept`, {
+      fetch(`${API}/friendship/${uuid}/accept`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${token}`,

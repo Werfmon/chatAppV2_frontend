@@ -1,11 +1,11 @@
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { navigate } from "../../../Components/Navigation/RootNavigation";
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 
 export function isPersonLogged(): void{
     getTokenFromStorage().then(token => {
 
-        fetch(`${EnvConfig.API}/auth/valid-jwt`, {
+        fetch(`${API}/auth/valid-jwt`, {
             headers: {
                 authorization: `Bearer ${token}`
             }

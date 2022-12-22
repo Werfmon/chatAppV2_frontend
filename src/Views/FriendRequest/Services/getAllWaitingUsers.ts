@@ -1,4 +1,4 @@
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { Dispatch, SetStateAction } from "react";
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
@@ -8,7 +8,7 @@ import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Object>>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
   
   getTokenFromStorage().then((token) => {
-    fetch(`${EnvConfig.API}/friendship/all/waiting`, {
+    fetch(`${API}/friendship/all/waiting`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

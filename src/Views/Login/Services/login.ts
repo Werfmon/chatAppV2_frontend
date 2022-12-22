@@ -1,6 +1,6 @@
 import { ContentType } from "../../../Components/Fetch/Headers";
 import { encodeBody } from "../../../Helper/encodeBody";
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 import { navigate } from "../../../Components/Navigation/RootNavigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Dispatch, SetStateAction } from "react";
@@ -16,7 +16,7 @@ export function login(email: string, password: string, setError: Dispatch<SetSta
   };
   console.log("Attempt to login: ", data);
 
-  fetch(`${EnvConfig.API}/login`, {
+  fetch(`${API}/login`, {
     method: "POST",
     headers: {
       "content-type": ContentType.APPLICATION_URLENCODED,

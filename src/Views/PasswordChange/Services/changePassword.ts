@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import EnvConfig from "../../../../EnvConfig";
+import { API } from "@env";;
 
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
@@ -23,7 +23,7 @@ export function changePassword(oldPassword: string, newPassword: string, newPass
 
             const data = { oldPassword, newPassword }
             
-            fetch(`${EnvConfig.API}/person/password`, {
+            fetch(`${API}/person/password`, {
                 method: 'PUT',
                 headers: {
                     authorization: `Bearer ${token}`,
