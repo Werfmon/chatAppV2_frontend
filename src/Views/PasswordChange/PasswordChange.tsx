@@ -1,19 +1,22 @@
-import { View, Text } from 'react-native'
 import React, {useState} from 'react'
+
+
 import { MainView } from '../_Components/MainView'
 import Error from '../_Components/ErrorHanding/Error'
-import { ErrorProps } from '../_Components/ErrorHanding/Types/ErrorProps';
-import { Status } from '../_Components/ErrorHanding/Helper/Status';
 import { Heading } from '../Settings/Components/Heading';
 import { ContainerHeading } from '../Settings/Components/ContainerHeading';
 import { Form } from '../Login/Components/Form';
 import { CustomTextInput } from '../_Components/CustomTextInput';
-import { Color } from '../../Components/Style/Color';
 import { ButtonsInline } from '../_Components/ButtonsInline';
 import TextButton from '../_Components/TextButton';
 import Button from '../_Components/Button';
+
 import { changePassword } from './Services/changePassword';
+
+import { Color } from '../../Components/Style/Color';
 import { navigate } from '../../Components/Navigation/RootNavigation';
+import { ErrorProps } from '../_Components/ErrorHanding/Types/ErrorProps';
+import { Status } from '../_Components/ErrorHanding/Helper/Status';
 
 export default function PasswordChange() {
     const [oldPassword, setOldPassword] = useState<string>('');

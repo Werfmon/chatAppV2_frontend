@@ -1,11 +1,15 @@
-import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { Dispatch, SetStateAction } from 'react';
-import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
-import { Status } from "../../_Components/ErrorHanding/Helper/Status";
-import { removeError } from "../../_Components/ErrorHanding/Error";
+
 import EnvConfig from "../../../../EnvConfig";
-import { ContentType } from "../../../Components/Fetch/Headers";
+
+import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
+import { Status } from "../../_Components/ErrorHanding/Helper/Status";
+
+import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
 import { InputRules } from "../../../Helper/InputRules";
+
+import { removeError } from "../../_Components/ErrorHanding/Error";
+import { ContentType } from "../../../Components/Fetch/Headers";
 
 export function changePassword(oldPassword: string, newPassword: string, newPasswordAgain: string, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then(token => {

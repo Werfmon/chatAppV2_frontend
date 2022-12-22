@@ -1,4 +1,4 @@
-export class ContentType {
-    static APPLICATION_JSON = 'application/json';
-    static APPLICATION_URLENCODED = 'application/x-www-form-urlencoded';
+export enum ContentType {
+    APPLICATION_JSON = 'application/json',
+    APPLICATION_URLENCODED = 'application/x-www-form-urlencoded'
 }

@@ -1,10 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
+
 import EnvConfig from "../../../../EnvConfig";
-import { ContentType } from "../../../Components/Fetch/Headers";
+
 import { getTokenFromStorage } from "../../../Helper/getTokenFromStorage";
-import { removeError } from "../../_Components/ErrorHanding/Error";
-import { Status } from "../../_Components/ErrorHanding/Helper/Status";
+
 import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
+import { Status } from "../../_Components/ErrorHanding/Helper/Status";
+import { removeError } from "../../_Components/ErrorHanding/Error";
+import { ContentType } from "../../../Components/Fetch/Headers";
 
 export function updateUserAvatar(base64Image: string, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then(token => {

@@ -1,10 +1,14 @@
-import ImagePicker, {launchImageLibrary} from 'react-native-image-picker';
-import RNFS from 'react-native-fs';
-import { updateUserAvatar } from './updateUserAvatar';
 import { Dispatch, SetStateAction } from 'react';
+
+import ImagePicker, { launchImageLibrary } from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
+
 import { ErrorProps } from '../../_Components/ErrorHanding/Types/ErrorProps';
 import { Status } from '../../_Components/ErrorHanding/Helper/Status';
 import { removeError } from '../../_Components/ErrorHanding/Error';
+
+import { updateUserAvatar } from './updateUserAvatar';
+
 
 export function pickImage(setError: Dispatch<SetStateAction<ErrorProps>>): void {
     const options = {
