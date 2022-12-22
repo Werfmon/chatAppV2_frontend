@@ -1,8 +1,16 @@
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_APP_ID,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+} from "@env";
+
 export const firebaseConfig = {
-  appId: "1:768091537843:android:8ab51df0fc73dcc20d8bc6",
-  projectId: "chatapp-b57ba",
-  apiKey: "AIzaSyAD2MTRcY6nIyV8m2Ih01obeuOdBGK4ZlQ",
-  databaseURL: "",
-  messagingSenderId: "768091537843",
-  storageBucket: "chatapp-b57ba.appspot.com",
+  appId: FIREBASE_APP_ID,
+  projectId: FIREBASE_PROJECT_ID,
+  apiKey: FIREBASE_API_KEY,
+  databaseURL: '',
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
 };
