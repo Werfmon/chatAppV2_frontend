@@ -27,14 +27,11 @@ export function updateUserAvatar(base64Image: string, setError: Dispatch<SetStat
             } else {
                 setError({message: 'Avatar was changed', status: Status.INFO, show: true})
             }
-            console.info(data.message);
         })
         .catch(err => {
-            console.warn(err);
             setError({message: 'Something went wrong', status: Status.WARNING, show: true})
         })
     }).catch(err => {
-        console.error(err);
         setError({message: 'Something went wrong, try reload app', status: Status.ERROR, show: true})
     }).finally(() => {
         removeError(setError);

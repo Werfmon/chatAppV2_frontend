@@ -19,31 +19,26 @@ export function register(
   if (!validateEmail(email)) {
     setError({message: 'Bad format of email address', status: Status.INFO, show: true})
     removeError(setError);
-    console.log("Bad format of email address");
     return;
   }
   if (firstName.length <= 1) {
     setError({message: 'Firstname is too short', status: Status.INFO, show: true})
     removeError(setError);
-    console.log("Firstname is too short");
     return;
   }
   if (lastName.length <= 1) {
     setError({message: 'Lastname is too short', status: Status.INFO, show: true})
     removeError(setError);
-    console.log("Lastname is too short");
     return;
   }
   if(nickname.length <= 3) {
     setError({message: 'Nickname is too short', status: Status.INFO, show: true})
     removeError(setError);
-    console.log("Nickname is too short");
     return;
   }
   if (password !== passwordAgain) {
     setError({message: 'Passwords are different', status: Status.INFO, show: true})
     removeError(setError);
-    console.log("Passwords are different");
     return;
   }
   const data: Object = {
@@ -71,7 +66,6 @@ export function register(
       }
     })
     .catch((err) => {
-      console.warn(err)
       setError({message: 'Something went wrong', status: Status.WARNING, show: true})
       removeError(setError);
     });

@@ -37,18 +37,15 @@ export function login(email: string, password: string, setError: Dispatch<SetSta
           await AsyncStorage.setItem("token", data.token);
           navigate("Home"); 
         } catch (e) {
-          console.error(e);
           setError({message: 'Something went wrong, try again or restart application', status: Status.ERROR, show: true})
           removeError(setError);
         }
       } else {
         setError({message: 'Bad login, try again', status: Status.WARNING, show: true})
         removeError(setError);
-        console.warn("error in login");
       }
     })
     .catch((err) => {
-      console.error(err)
       setError({message: 'Something went wrong, try again', status: Status.WARNING, show: true})
       removeError(setError);
     });

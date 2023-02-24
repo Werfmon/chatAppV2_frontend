@@ -18,10 +18,8 @@ export function setMessagesAsSeen(chatUuid: string, setError: Dispatch<SetStateA
             console.info(data.message);
         })
         .catch(err => {
-            console.warn(err);
         })
     }).catch(err => {
-        console.warn(err)
         setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
         removeError(setError);
     })

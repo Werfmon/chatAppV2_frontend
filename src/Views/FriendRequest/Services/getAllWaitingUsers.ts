@@ -26,12 +26,10 @@ export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Objec
         console.info(data.message);
       })
       .catch((err) => {
-        console.warn(err)
         setError({message: 'Something went wrong', status: Status.WARNING, show: true})
         removeError(setError);
       });
   }).catch((err) => {
-    console.error(err)
     setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
     removeError(setError);
   });;

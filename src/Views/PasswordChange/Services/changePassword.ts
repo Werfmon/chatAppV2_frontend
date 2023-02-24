@@ -14,10 +14,8 @@ import { ContentType } from "../../../Components/Fetch/Headers";
 export function changePassword(oldPassword: string, newPassword: string, newPasswordAgain: string, setError: Dispatch<SetStateAction<ErrorProps>>): void {
     getTokenFromStorage().then(token => {
         if (newPassword !== newPasswordAgain) {
-            console.warn('Passwords are not same');
             setError({message: 'Passwords are not same', status: Status.WARNING, show: true})
         } else if (newPassword.length <= InputRules.PASSWORD_MAX_LENGTH) {
-            console.warn('Password is too short');
             setError({message: 'Password is too short', status: Status.WARNING, show: true})
         } else {
 
@@ -41,12 +39,10 @@ export function changePassword(oldPassword: string, newPassword: string, newPass
                 console.info(data.message);
             })
             .catch(err => {
-                console.error(err);
                 setError({message: 'Something went wrong', status: Status.WARNING, show: true})
             })
         }
     }).catch(err => {
-        console.error(err);
         setError({message: 'Something went wrong, try restart application', status: Status.ERROR, show: true})
     }).finally(() => {
         removeError(setError);

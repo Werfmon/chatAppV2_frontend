@@ -7,8 +7,6 @@ export function saveFCMToken(): void {
     getTokenFromStorage().then(token => {
         messaging().registerDeviceForRemoteMessages().then(_ => {
             messaging().getToken().then(fcmToken => {
-                console.log("FCM token: " + fcmToken);
-                
                 fetch(`${API}/person/subscribe`, {
                     method: 'PUT',
                     headers: {
@@ -23,7 +21,6 @@ export function saveFCMToken(): void {
                         console.log(data.message);
                     }
                 }).catch(err => {
-                    console.error(err);
                 })
             });
           });

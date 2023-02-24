@@ -8,7 +8,6 @@ export function establishConnection(setWebSocket: Dispatch<SetStateAction<WebSoc
     getTokenFromStorage().then((token) => {
         const headers = { Authorization: "" };
         headers["Authorization"] = `Bearer ${token}`;
-        console.log("Auth token: " + headers.Authorization);
         const webSocketLocal = new WebSocket(WS_URL, null, { headers });
         setWebSocket(webSocketLocal);
   
@@ -19,7 +18,6 @@ export function establishConnection(setWebSocket: Dispatch<SetStateAction<WebSoc
         webSocketLocal.onerror = (e: any) => {
           setError({message: 'Something went wrong, try logout and login again', status: Status.WARNING, show: true});
           removeError(setError);
-          console.warn(e);
         };
       });
 }

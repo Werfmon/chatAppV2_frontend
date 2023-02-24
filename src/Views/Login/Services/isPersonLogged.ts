@@ -19,7 +19,6 @@ export function isPersonLogged(): void{
             }
             console.info(data.message);
         }).catch(err => {
-            console.error('JWT is invalid');
         })
     })
 }

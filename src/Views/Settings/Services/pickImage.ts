@@ -21,7 +21,6 @@ export function pickImage(setError: Dispatch<SetStateAction<ErrorProps>>): void 
     // @ts-expect-error
     launchImageLibrary(options, (response: ImagePicker.ImagePickerResponse) => {
         if (response.errorMessage) {
-            console.log('ImagePicker Error: ', response.errorMessage);
             setError({message: "Something went wrong", show: true, status: Status.ERROR})
             removeError(setError);
         } else {
@@ -34,7 +33,6 @@ export function pickImage(setError: Dispatch<SetStateAction<ErrorProps>>): void 
                     
                     updateUserAvatar(base64Image, setError);
                 }).catch(err => {
-                    console.error(err);
                     setError({message: "Something went wrong", show: true, status: Status.ERROR})
                     removeError(setError);
                 });

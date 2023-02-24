@@ -26,12 +26,10 @@ export function acceptFriendRequest(uuid: string, refresh: number, setRefresh: D
           }
         })
         .catch((err) => {
-          console.error(err)
           setError({message: 'Something went wrong, user wasn\'t accepted', status: Status.WARNING, show: true})
           removeError(setError);
         });
     }).catch((err) => {
-      console.error(err)
       setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
       removeError(setError);
     });

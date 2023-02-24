@@ -35,7 +35,6 @@ export function addUser(
       })
     })
     .catch((err) => {
-      console.warn(err)
       setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
       removeError(setError);
     });

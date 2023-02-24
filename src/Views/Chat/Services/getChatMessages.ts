@@ -35,12 +35,10 @@ export function getChatMessages(
         }
       })
       .catch((err) => {
-        console.warn(err)
         setError({message: 'Error, try restart application or logout', status: Status.WARNING, show: true})
         removeError(setError);
       });
   }).catch((err) => {
-    console.warn(err)
     setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
     removeError(setError);
   });
