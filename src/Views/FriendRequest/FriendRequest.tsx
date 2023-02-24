@@ -12,7 +12,7 @@ import { Status } from '../_Components/ErrorHanding/Helper/Status'
 import Error from '../_Components/ErrorHanding/Error'
 
 const FriendRequest = () => {
-  const [users, setUsers] = useState([{}]);
+  const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(0);
   const [error, setError] = useState<ErrorProps>({message: '', status: Status.INFO});
 

@@ -14,3 +14,6 @@ export const firebaseConfig = {
   messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
   storageBucket: FIREBASE_STORAGE_BUCKET,
 };
+console.log('====================================');
+console.log(firebaseConfig);
+console.log('====================================');

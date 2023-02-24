@@ -5,7 +5,7 @@ import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 
-export function getAllWaitingUsers(setUsers: Dispatch<SetStateAction<Array<Object>>>, setError: Dispatch<SetStateAction<ErrorProps>>) {
+export function getAllWaitingUsers(setUsers: any, setError: Dispatch<SetStateAction<ErrorProps>>) {
   
   getTokenFromStorage().then((token) => {
     fetch(`${API}/friendship/all/waiting`, {

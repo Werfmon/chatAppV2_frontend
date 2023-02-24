@@ -25,8 +25,9 @@ export function getLastChatMessage(chatUuid: string, loggedPersonUuid: string, s
             console.log(data.message);
         })
         .catch(err => {
-            setError({message: 'Last message don\'t load', status: Status.WARNING, show: true});
-            removeError(setError);
+            // setError({message: 'Last message don\'t load', status: Status.WARNING, show: true});
+            // removeError(setError);
+            setLastMessage({message: 'Start your chat!', sentDate: '', seen: false});
         })
     }).catch((err) => {
         setError({message: 'Error, try logout and login again', status: Status.ERROR, show: true})
