@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {AppState} from 'react-native';
+import {AppState, LogBox} from 'react-native';
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
@@ -51,10 +51,10 @@ async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) 
     }      
   })
 }
-
 messaging().onMessage(onMessageReceived);
-// messaging().setBackgroundMessageHandler(onMessageReceived);
+messaging().setBackgroundMessageHandler(onMessageReceived);
 
+LogBox.ignoreAllLogs();
 
 const App = () => {
   return (

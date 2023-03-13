@@ -5,7 +5,7 @@ import { ErrorProps } from "../../_Components/ErrorHanding/Types/ErrorProps";
 import { Status } from "../../_Components/ErrorHanding/Helper/Status";
 import { removeError } from "../../_Components/ErrorHanding/Error";
 
-export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAction<ErrorProps>>, search: string, limit: number = 20, offset: number = 0) {
+export function getAllUsersChat(setUserChats: Dispatch<SetStateAction<Array<Object>>>, setError: Dispatch<SetStateAction<ErrorProps>>, search: string, limit: number = 20, offset: number = 0) {
   getTokenFromStorage()
     .then((token) => {
       fetch(`${API}/chat/current-person?search=${search}&limit=${limit}&offset=${offset}`, {
@@ -17,6 +17,7 @@ export function getAllUsersChat(setUserChats: any, setError: Dispatch<SetStateAc
         .then((data) => {
           if (data.ok) {
             setUserChats(data.data);
+            console.log("User chats were returned: " + data.data.length);
           } else {
             setError({message: 'Chats didn\'t load, try restart application or logout', status: Status.ERROR, show: true})
             removeError(setError);
